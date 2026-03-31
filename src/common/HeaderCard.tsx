@@ -18,20 +18,6 @@ export type HeaderCardProps = {
   backgroundImage?: string
 }
 
-const BACKGROUND_IMAGE_BY_VARIANT_AND_THEME: Record<
-  HeaderCardProps['variant'],
-  Record<HeaderCardProps['theme'], string>
-> = {
-  tool: {
-    lightday: new URL('./assets/header-card-tool-lightday.svg', import.meta.url).toString(),
-    darknight: new URL('./assets/header-card-tool-darknight.svg', import.meta.url).toString()
-  },
-  table: {
-    lightday: new URL('./assets/header-card-table-lightday.svg', import.meta.url).toString(),
-    darknight: new URL('./assets/header-card-table-darknight.svg', import.meta.url).toString()
-  }
-}
-
 function GridSvgIcon() {
   return (
     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
@@ -78,8 +64,6 @@ export default function HeaderCard({
   backgroundColor,
   backgroundImage
 }: HeaderCardProps) {
-  const defaultBgUrl = BACKGROUND_IMAGE_BY_VARIANT_AND_THEME[variant][theme]
-  const resolvedBgImage = backgroundImage ?? `url(${defaultBgUrl})`
   return (
     <div
       className="job-header-card"
@@ -87,7 +71,7 @@ export default function HeaderCard({
       data-theme={theme}
       style={{
         ...(backgroundColor ? ({ ['--job-header-card-bg-color']: backgroundColor } as Record<string, string>) : null),
-        ...({ ['--job-header-card-bg-image']: resolvedBgImage } as Record<string, string>)
+        ...(backgroundImage ? ({ ['--job-header-card-bg-image']: backgroundImage } as Record<string, string>) : null)
       }}
     >
       <div className="job-header-card__group">
