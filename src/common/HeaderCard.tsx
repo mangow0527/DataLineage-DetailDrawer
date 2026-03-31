@@ -14,8 +14,28 @@ export type HeaderCardProps = {
   createdAtIcon?: ReactNode
   updatedAtIcon?: ReactNode
   columnCountIcon?: ReactNode
+  assetBasePath?: string
   backgroundColor?: string
   backgroundImage?: string
+}
+
+function getAssetBasePath() {
+  const w = globalThis as any
+  const fromGlobal = w?.PUBLIC_PATH ?? w?.__PUBLIC_PATH__ ?? w?.publicPath ?? null
+  const fromBaseTag =
+    typeof document !== 'undefined' ? (document.querySelector('base') as HTMLBaseElement | null)?.href ?? null : null
+  const raw = (fromGlobal ?? fromBaseTag ?? '') as string
+  if (!raw) return ''
+  if (raw.endsWith('/')) return raw
+  return `${raw}/`
+}
+
+function toCssUrl(value: string) {
+  const trimmed = value.trim()
+  if (!trimmed) return 'none'
+  if (trimmed === 'none') return 'none'
+  if (trimmed.startsWith('url(')) return trimmed
+  return `url(${trimmed})`
 }
 
 function GridSvgIcon() {
@@ -61,9 +81,15 @@ export default function HeaderCard({
   createdAtIcon,
   updatedAtIcon,
   columnCountIcon,
+  assetBasePath,
   backgroundColor,
   backgroundImage
 }: HeaderCardProps) {
+  const themeFolder = theme === 'lightday' ? 'lightday' : 'evening'
+  const defaultBgPath = `images/${themeFolder}/header-card-${variant}.svg`
+  const basePath = assetBasePath ?? getAssetBasePath()
+  const defaultBgUrl = basePath ? `${basePath}${defaultBgPath}` : `/${defaultBgPath}`
+  const resolvedBgImage = toCssUrl(backgroundImage ?? defaultBgUrl)
   return (
     <div
       className="job-header-card"
@@ -71,7 +97,7 @@ export default function HeaderCard({
       data-theme={theme}
       style={{
         ...(backgroundColor ? ({ ['--job-header-card-bg-color']: backgroundColor } as Record<string, string>) : null),
-        ...(backgroundImage ? ({ ['--job-header-card-bg-image']: backgroundImage } as Record<string, string>) : null)
+        ...({ ['--job-header-card-bg-image']: resolvedBgImage } as Record<string, string>)
       }}
     >
       <div className="job-header-card__group">
