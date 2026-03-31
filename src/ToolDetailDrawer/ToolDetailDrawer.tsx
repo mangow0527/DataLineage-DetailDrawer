@@ -79,7 +79,16 @@ export default function ToolDetailDrawer({
       open={visible}
       closable={false}
       onClose={onClose}
-      styles={{ body: { padding: 0, height: '100vh', display: 'flex', flexDirection: 'column' } }}
+      styles={{
+        body: {
+          padding: 0,
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          overflow: 'hidden'
+        }
+      }}
     >
       <div className="drawer-shell" data-theme={currentTheme}>
         <div className="job-header-section">
