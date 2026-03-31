@@ -1,7 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.less'
-import ToolNodeDrawer from './ToolNodeDrawer'
+import ToolDetailDrawer from './ToolDetailDrawer'
 
 const el = document.getElementById('root')
 if (!el) throw new Error('root not found')
@@ -69,7 +69,7 @@ function Demo() {
           打开抽屉
         </button>
       </div>
-      <ToolNodeDrawer
+      <ToolDetailDrawer
         visible={toolDrawerVisible}
         onClose={() => setToolDrawerVisible(false)}
         nodeData={currentNodeData}

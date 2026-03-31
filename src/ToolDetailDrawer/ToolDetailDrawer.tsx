@@ -9,7 +9,7 @@ import SummaryGrid from './components/SummaryGrid'
 import { loadToolDetail } from './data/data-extractor'
 import type { JobDetailViewModel } from './data/view-model'
 
-export type ToolNodeDrawerProps = {
+export type ToolDetailDrawerProps = {
   visible: boolean
   onClose: () => void
   nodeData: { namespace?: string; name?: string; jobName?: string } | null
@@ -19,7 +19,7 @@ export type ToolNodeDrawerProps = {
   currentTheme?: 'lightday' | 'darknight'
 }
 
-export default function ToolNodeDrawer({
+export default function ToolDetailDrawer({
   visible,
   onClose,
   nodeData,
@@ -27,7 +27,7 @@ export default function ToolNodeDrawer({
   pageNo,
   pageSize,
   currentTheme = 'lightday'
-}: ToolNodeDrawerProps) {
+}: ToolDetailDrawerProps) {
   const [activeTab, setActiveTab] = useState<'latestRun' | 'runHistory'>('latestRun')
   const [selectedRunId, setSelectedRunId] = useState<string | null>(null)
   const [viewModel, setViewModel] = useState<JobDetailViewModel | null>(null)

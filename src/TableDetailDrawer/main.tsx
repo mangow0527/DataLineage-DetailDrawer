@@ -1,12 +1,12 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './style.css'
-import App from './App'
+import TableDetailDrawer from './TableDetailDrawer'
 
 const el = document.getElementById('root')
 if (!el) throw new Error('root not found')
 createRoot(el).render(
   <React.StrictMode>
-    <App />
+    <TableDetailDrawer />
   </React.StrictMode>
 )
