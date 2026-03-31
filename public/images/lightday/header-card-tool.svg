@@ -6,14 +6,5 @@
     </linearGradient>
   </defs>
   <rect width="896" height="180" rx="10" fill="url(#bg)" />
-  <path
-    d="M0 138C116 97 225 92 337 118C439 142 524 134 620 110C713 87 799 89 896 124V180H0V138Z"
-    fill="#FFFFFF"
-    fill-opacity="0.18"
-  />
-  <path
-    d="M0 58C125 34 246 37 346 63C454 91 548 93 639 77C733 61 805 35 896 24V0H0V58Z"
-    fill="#FFFFFF"
-    fill-opacity="0.10"
-  />
+  <path d="M0 140C140 90 260 98 360 120C468 145 560 140 650 112C744 82 818 84 896 112V180H0V140Z" fill="#FFFFFF" fill-opacity="0.16" />
 </svg>
