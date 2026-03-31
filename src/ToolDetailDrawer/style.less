@@ -7,6 +7,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .drawer-shell[data-theme='lightday'] {
@@ -21,6 +23,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0;
   margin-bottom: 16px;
 }
 
@@ -49,8 +52,8 @@ body {
 }
 
 .drawer-icon-button {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border: none;
   background: transparent;
   border-radius: 8px;
@@ -114,9 +117,15 @@ body {
 }
 
 .drawer-icon-button svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: block;
+  transform: scale(1.12);
+  transform-origin: 50% 50%;
+}
+
+.drawer-icon-button--danger svg {
+  transform: translateY(1px) scale(1.12);
 }
 
 .drawer-menu-anchor {
@@ -169,7 +178,11 @@ body {
 }
 
 .job-header-section {
-  padding: 24px 24px 0;
+  padding: 24px 0 0;
+}
+
+.drawer-content {
+  padding: 16px 0 24px;
 }
 
 .job-header-card {
@@ -182,7 +195,7 @@ body {
   color: #0b0b0b;
   position: relative;
   overflow: hidden;
-  margin-top: 12px;
+  margin: 12px 0 0;
 }
 
 .job-header-card__title {

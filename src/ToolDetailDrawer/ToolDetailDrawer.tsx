@@ -92,7 +92,7 @@ export default function ToolDetailDrawer({
           />
         </div>
 
-        <div style={{ padding: 16 }}>
+        <div className="drawer-content">
           {loading ? (
             <div
               style={{
