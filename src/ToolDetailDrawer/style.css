@@ -1,0 +1,288 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.drawer-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-shell[data-theme='lightday'] {
+  background: rgba(255, 255, 255, 1);
+}
+
+.drawer-shell[data-theme='darknight'] {
+  background: rgba(42, 42, 42, 1);
+}
+
+.drawer-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.drawer-title-bar__title {
+  font-family: "HarmonyOS Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.drawer-title-bar[data-theme='lightday'] .drawer-title-bar__title {
+  color: rgba(25, 25, 25, 1);
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-title-bar__title {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-title-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.drawer-icon-button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.drawer-icon-button:hover {
+  background: transparent;
+  color: #2673E5;
+}
+
+.drawer-icon-button:focus-visible {
+  outline: none;
+  background: transparent;
+  color: #2673E5;
+}
+
+.drawer-title-bar[data-theme='lightday'] .drawer-icon-button--close {
+  color: rgba(77, 77, 77, 1);
+}
+
+.drawer-title-bar[data-theme='lightday'] .drawer-icon-button--close:hover,
+.drawer-title-bar[data-theme='lightday'] .drawer-icon-button--close:focus-visible {
+  color: #2673E5;
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--close {
+  color: rgba(128, 128, 128, 1);
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--close:hover,
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--close:focus-visible {
+  color: #3388FF;
+}
+
+.drawer-icon-button--danger {
+  color: rgba(77, 77, 77, 1);
+}
+
+.drawer-icon-button--danger:hover,
+.drawer-icon-button--danger:focus-visible {
+  color: #2673E5;
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button:hover,
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button:focus-visible {
+  color: #3388FF;
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--danger {
+  color: rgba(128, 128, 128, 1);
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--danger:hover,
+.drawer-title-bar[data-theme='darknight'] .drawer-icon-button--danger:focus-visible {
+  color: #3388FF;
+}
+
+.drawer-icon-button svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.drawer-menu-anchor {
+  position: relative;
+}
+
+.drawer-menu {
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  transform: translateY(100%);
+  min-width: 120px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  display: none;
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-menu {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: #0f172a;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+.drawer-menu--open {
+  display: block;
+}
+
+.drawer-menu__item {
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(25, 25, 25, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-menu__item {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-menu__item:hover {
+  background: rgba(38, 115, 229, 0.08);
+}
+
+.drawer-title-bar[data-theme='darknight'] .drawer-menu__item:hover {
+  background: rgba(51, 136, 255, 0.12);
+}
+
+.job-header-section {
+  padding: 24px 24px 0;
+}
+
+.job-header-card {
+  border-radius: 10px;
+  background-color: #4096ff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='896' height='180' viewBox='0 0 896 180' fill='none'%3E%3Crect width='896' height='180' rx='10' fill='%234096ff'/%3E%3Cpath d='M0 138C116 97 225 92 337 118C439 142 524 134 620 110C713 87 799 89 896 124V180H0V138Z' fill='%236bb1ff' fill-opacity='0.55'/%3E%3Cpath d='M0 58C125 34 246 37 346 63C454 91 548 93 639 77C733 61 805 35 896 24V0H0V58Z' fill='white' fill-opacity='0.12'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  min-height: 180px;
+  color: #0b0b0b;
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.job-header-card__title {
+  text-align: left;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.job-header-card__group {
+  position: absolute;
+  top: 20px;
+  left: 168px;
+  right: 120px;
+  bottom: 20px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.job-header-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 56px;
+  width: 100%;
+  height: 88px;
+  margin-top: auto;
+}
+
+.job-header-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+.job-header-card__meta-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 18px;
+  color: #0b0b0b;
+}
+
+.job-header-card__meta-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.job-header-card__meta-text {
+  min-width: 0;
+}
+
+.job-header-card__meta-label {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.job-header-card__meta-value {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.code-block {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 12px;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: pre;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.status-running { background: #1677ff; }
+.status-completed { background: #52c41a; }
+.status-failed { background: #ff4d4f; }
+.status-aborted { background: #fa8c16; }
+.status-na { background: #bfbfbf; }

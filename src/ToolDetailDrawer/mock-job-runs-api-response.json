@@ -1,0 +1,113 @@
+{
+  "retCode": 0,
+  "retInfo": "success",
+  "i18nKey": "dte.datalineage.ok",
+  "data": {
+    "runs": [
+      {
+        "id": "0176a8c2-fe01-7439-87e6-56a1a1b4029a",
+        "createdAt": "2020-12-28T09:52:00.001Z",
+        "updatedAt": "2020-12-28T10:52:00.001Z",
+        "nominalStartTime": null,
+        "nominalEndTime": null,
+        "state": "COMPLETED",
+        "startedAt": "2020-12-28T09:52:00.001Z",
+        "endedAt": "2020-12-28T10:52:00.001Z",
+        "durationMs": 3600000,
+        "args": {},
+        "inputDatasetVersions": [
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-input-01",
+              "version": "837bee89-7ac9-3f4c-b3a4-64cc7031bdbe"
+            },
+            "facets": {}
+          },
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-input-02",
+              "version": "31dc7168-4ecf-3e5a-824a-82494460bc9d"
+            },
+            "facets": {}
+          }
+        ],
+        "outputDatasetVersions": [
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-output-01",
+              "version": "e613c5b3-8bd4-31aa-b043-9d268fc38f0c"
+            },
+            "facets": {}
+          },
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-output-02",
+              "version": "6e05e54b-81b1-36bb-8b37-0434bc82ce41"
+            },
+            "facets": {}
+          }
+        ],
+        "facets": {
+          "nominalTime": {
+            "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+            "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/NominalTimeRunFacet.json",
+            "nominalStartTime": "2020-12-28T09:52:00.001Z",
+            "nominalEndTime": "2020-12-28T10:52:00.001Z"
+          },
+          "processing_engine": {},
+          "executionParameters": {}
+        }
+      },
+      {
+        "id": "0176a8c2-fe01-7439-87e6-56a1a1b4029b",
+        "createdAt": "2020-12-27T09:52:00.001Z",
+        "updatedAt": "2020-12-27T10:40:00.001Z",
+        "nominalStartTime": null,
+        "nominalEndTime": null,
+        "state": "FAILED",
+        "startedAt": "2020-12-27T09:52:00.001Z",
+        "endedAt": "2020-12-27T10:40:00.001Z",
+        "durationMs": 2880000,
+        "args": {
+          "schedule_interval": "@daily",
+          "backfill": false
+        },
+        "inputDatasetVersions": [
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-input-01",
+              "version": "6e05e54b-81b1-36bb-8b37-0434bc82ce41"
+            },
+            "facets": {}
+          }
+        ],
+        "outputDatasetVersions": [
+          {
+            "datasetVersionId": {
+              "namespace": "my-namespace",
+              "name": "test-output-03",
+              "version": "1b1cc41a-e226-3bda-9779-b6346200bf86"
+            },
+            "facets": {}
+          }
+        ],
+        "facets": {
+          "nominalTime": {
+            "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+            "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/NominalTimeRunFacet.json",
+            "nominalStartTime": "2020-12-27T09:52:00.001Z",
+            "nominalEndTime": "2020-12-27T10:40:00.001Z"
+          },
+          "processing_engine": {},
+          "executionParameters": {}
+        }
+      }
+    ],
+    "totalCount": 2
+  }
+}

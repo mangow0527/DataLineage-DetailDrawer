@@ -1,0 +1,121 @@
+{
+  "retCode": 0,
+  "retInfo": "success",
+  "i18nKey": "dte.datalineagshae.ok",
+  "data": {
+    "id": "10cec103-cd35-47f3-b666-fda3e27d1a9a",
+    "type": "BATCH",
+    "name": "test-job-01",
+    "parentJobName": null,
+    "parentJobUuid": null,
+    "createdAt": "2020-12-28T09:52:00.001Z",
+    "updatedAt": "2020-12-28T10:52:00.001Z",
+    "namespace": "my-namespace",
+    "inputs": [
+      {
+        "namespace": "my-namespace",
+        "name": "test-input-01"
+      },
+      {
+        "namespace": "my-namespace",
+        "name": "test-input-02"
+      }
+    ],
+    "outputs": [
+      {
+        "namespace": "my-namespace",
+        "name": "test-output-01"
+      },
+      {
+        "namespace": "my-namespace",
+        "name": "test-output-02"
+      }
+    ],
+    "location": null,
+    "description": null,
+    "latestRun": {
+      "id": "0176a8c2-fe01-7439-87e6-56a1a1b4029a",
+      "createdAt": "2020-12-28T09:52:00.001Z",
+      "updatedAt": "2020-12-28T10:52:00.001Z",
+      "nominalStartTime": null,
+      "nominalEndTime": null,
+      "state": "COMPLETED",
+      "startedAt": "2020-12-28T09:52:00.001Z",
+      "endedAt": "2020-12-28T10:52:00.001Z",
+      "durationMs": 3600000,
+      "args": {},
+      "inputDatasetVersions": [
+        {
+          "datasetVersionId": {
+            "namespace": "my-namespace",
+            "name": "test-input-01",
+            "version": "837bee89-7ac9-3f4c-b3a4-64cc7031bdbe"
+          },
+          "facets": {}
+        },
+        {
+          "datasetVersionId": {
+            "namespace": "my-namespace",
+            "name": "test-input-02",
+            "version": "31dc7168-4ecf-3e5a-824a-82494460bc9d"
+          },
+          "facets": {}
+        }
+      ],
+      "outputDatasetVersions": [
+        {
+          "datasetVersionId": {
+            "namespace": "my-namespace",
+            "name": "test-output-01",
+            "version": "e613c5b3-8bd4-31aa-b043-9d268fc38f0c"
+          },
+          "facets": {}
+        },
+        {
+          "datasetVersionId": {
+            "namespace": "my-namespace",
+            "name": "test-output-02",
+            "version": "6e05e54b-81b1-36bb-8b37-0434bc82ce41"
+          },
+          "facets": {}
+        }
+      ],
+      "facets": {
+        "nominalTime": {
+          "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/NominalTimeRunFacet.json",
+          "nominalStartTime": "2020-12-28T09:52:00.001Z",
+          "nominalEndTime": "2020-12-28T10:52:00.001Z"
+        },
+        "processing_engine": {},
+        "executionParameters": {}
+      }
+    },
+    "facets": {
+      "sql": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/SQLJobFacet.json",
+        "query": "INSERT INTO delivery_7_days (order_id, order_placed_on, order_dispatched_on, order_delivered_on, customer_email,\n    customer_address, discount_id, menu_id, restaurant_id, restaurant_address, menu_item_id, category_id, driver_id)\nSELECT o.order_id, o.placed_on AS order_placed_on,\n  (SELECT transitioned_at FROM order_status WHERE order_id = o.order_id AND status = 'DISPATCHED') AS order_dispatched_on,\n  (SELECT transitioned_at FROM order_status WHERE order_id = o.order_id AND status = 'DELIVERED') AS order_delivered_on,\n  c.email AS customer_email, c.address AS customer_address, o.discount_id, o.menu_id, o.restaurant_id,\n  r.address, o.menu_item_id, o.category_id, d.id AS driver_id\nFROM orders_7_days AS o\nINNER JOIN order_status AS os ON os.order_id = o.order_id\nINNER JOIN customers AS c ON c.id = os.customer_id\nINNER JOIN restaurants AS r ON r.id = os.restaurant_id\nINNER JOIN drivers AS d ON d.id = os.driver_id\nWHERE os.transitioned_at >= NOW() - interval '7 days';"
+      },
+      "documentation": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DocumentationJobFacet.json",
+        "description": "Loads new deliveries for the week."
+      },
+      "jobType": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/JobTypeJobFacet.json",
+        "processingType": "BATCH",
+        "integration": "AIRFLOW",
+        "jobType": "TASK"
+      },
+      "sourceCode": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/SourceCodeJobFacet.json",
+        "language": "python",
+        "sourceCode": "with DAG(dag_id='test-job-01', schedule_interval='@daily') as dag:\n    run_delivery = PythonOperator(\n        task_id='run_delivery',\n        python_callable=build_delivery_7_days\n    )"
+      }
+    },
+    "labels": []
+  }
+}
