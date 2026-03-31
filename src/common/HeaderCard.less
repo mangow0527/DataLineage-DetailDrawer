@@ -1,7 +1,7 @@
 .job-header-card {
   border-radius: 10px;
   background-color: var(--job-header-card-bg-color, #4096ff);
-  background-image: var(--job-header-card-bg-image);
+  background-image: var(--job-header-card-bg-image, none);
   background-size: cover;
   background-position: center;
   min-height: 180px;
@@ -9,22 +9,6 @@
   position: relative;
   overflow: hidden;
   margin: 12px 0 0;
-}
-
-.job-header-card[data-variant='tool'][data-theme='lightday'] {
-  --job-header-card-bg-image: url('./assets/header-card-tool-lightday.svg');
-}
-
-.job-header-card[data-variant='tool'][data-theme='darknight'] {
-  --job-header-card-bg-image: url('./assets/header-card-tool-darknight.svg');
-}
-
-.job-header-card[data-variant='table'][data-theme='lightday'] {
-  --job-header-card-bg-image: url('./assets/header-card-table-lightday.svg');
-}
-
-.job-header-card[data-variant='table'][data-theme='darknight'] {
-  --job-header-card-bg-image: url('./assets/header-card-table-darknight.svg');
 }
 
 .job-header-card__title {
