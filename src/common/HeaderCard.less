@@ -1,0 +1,104 @@
+.job-header-card {
+  border-radius: 10px;
+  background-color: var(--job-header-card-bg-color, #4096ff);
+  background-image: var(--job-header-card-bg-image);
+  background-size: cover;
+  background-position: center;
+  min-height: 180px;
+  color: #0b0b0b;
+  position: relative;
+  overflow: hidden;
+  margin: 12px 0 0;
+}
+
+.job-header-card[data-variant='tool'][data-theme='lightday'] {
+  --job-header-card-bg-image: url('./assets/header-card-tool-lightday.svg');
+}
+
+.job-header-card[data-variant='tool'][data-theme='darknight'] {
+  --job-header-card-bg-image: url('./assets/header-card-tool-darknight.svg');
+}
+
+.job-header-card[data-variant='table'][data-theme='lightday'] {
+  --job-header-card-bg-image: url('./assets/header-card-table-lightday.svg');
+}
+
+.job-header-card[data-variant='table'][data-theme='darknight'] {
+  --job-header-card-bg-image: url('./assets/header-card-table-darknight.svg');
+}
+
+.job-header-card__title {
+  text-align: left;
+  font-size: 28px;
+  line-height: 1.25;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.job-header-card__group {
+  position: absolute;
+  top: 20px;
+  left: 168px;
+  right: 120px;
+  bottom: 20px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.job-header-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 56px;
+  width: 100%;
+  height: 88px;
+  margin-top: auto;
+}
+
+.job-header-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  background: transparent;
+  flex: 0 0 auto;
+}
+
+.job-header-card__meta-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 18px;
+  color: #0b0b0b;
+}
+
+.job-header-card__meta-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.job-header-card__meta-text {
+  min-width: 0;
+}
+
+.job-header-card__meta-label {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.job-header-card__meta-value {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}

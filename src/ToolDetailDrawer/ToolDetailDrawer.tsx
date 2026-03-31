@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Drawer } from 'antd'
 import './style.less'
 import DrawerTitle from '../common/DrawerTitle'
-import HeaderBar from './components/HeaderBar'
+import HeaderCard from '../common/HeaderCard'
 import JobTabs from './components/JobTabs'
 import LatestRunPanel from './components/LatestRunPanel'
 import RunHistoryPanel from './components/RunHistoryPanel'
@@ -84,7 +84,9 @@ export default function ToolDetailDrawer({
       <div className="drawer-shell" data-theme={currentTheme}>
         <div className="job-header-section">
           <DrawerTitle currentTheme={currentTheme} onClose={onClose} />
-          <HeaderBar
+          <HeaderCard
+            variant="tool"
+            theme={currentTheme}
             title={viewModel?.header.title ?? nodeJobName}
             type={viewModel?.header.type}
             createdAt={viewModel?.header.createdAt}
