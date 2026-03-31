@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import './style.css'
+import './style.less'
 import ToolNodeDrawer from './ToolNodeDrawer'
 
 const el = document.getElementById('root')

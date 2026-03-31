@@ -71,14 +71,6 @@ export default function ToolNodeDrawer({
 
   if (!visible) return null
 
-  if (loading || !viewModel) {
-    return (
-      <Drawer placement="right" width={896} open={visible} closable={false} onClose={onClose} styles={{ body: { padding: 16 } }}>
-        <Typography.Text>Loading...</Typography.Text>
-      </Drawer>
-    )
-  }
-
   return (
     <Drawer
       placement="right"
@@ -92,38 +84,46 @@ export default function ToolNodeDrawer({
         <div className="job-header-section">
           <DrawerTitle currentTheme={currentTheme} onClose={onClose} />
           <HeaderBar
-            title={viewModel.header.title}
-            type={viewModel.header.type}
-            createdAt={viewModel.header.createdAt}
-            updatedAt={viewModel.header.updatedAt}
+            title={viewModel?.header.title ?? nodeJobName}
+            type={viewModel?.header.type}
+            createdAt={viewModel?.header.createdAt}
+            updatedAt={viewModel?.header.updatedAt}
           />
         </div>
 
         <div style={{ padding: 16 }}>
-          <SummaryGrid summary={viewModel.summary} />
+          {loading ? (
+            <Typography.Text>Loading...</Typography.Text>
+          ) : !viewModel ? (
+            <Typography.Text type="danger">加载失败：未获取到 Job 详情数据</Typography.Text>
+          ) : (
+            <>
+              <SummaryGrid summary={viewModel.summary} />
 
-          <div style={{ marginTop: 16 }}>
-            <JobTabs
-              activeTab={activeTab}
-              onChange={(tab) => {
-                setActiveTab(tab)
-                setSelectedRunId(null)
-              }}
-            />
+              <div style={{ marginTop: 16 }}>
+                <JobTabs
+                  activeTab={activeTab}
+                  onChange={(tab) => {
+                    setActiveTab(tab)
+                    setSelectedRunId(null)
+                  }}
+                />
 
-            {activeTab === 'latestRun' ? (
-              <LatestRunPanel latestRun={viewModel.latestRun} />
-            ) : (
-              <RunHistoryPanel
-                selectedRunId={selectedRunId}
-                selectedRun={selectedRun}
-                items={viewModel.runHistory.items}
-                jobFacets={viewModel.latestRun.jobFacets}
-                onSelectRun={setSelectedRunId}
-                onBack={() => setSelectedRunId(null)}
-              />
-            )}
-          </div>
+                {activeTab === 'latestRun' ? (
+                  <LatestRunPanel latestRun={viewModel.latestRun} />
+                ) : (
+                  <RunHistoryPanel
+                    selectedRunId={selectedRunId}
+                    selectedRun={selectedRun}
+                    items={viewModel.runHistory.items}
+                    jobFacets={viewModel.latestRun.jobFacets}
+                    onSelectRun={setSelectedRunId}
+                    onBack={() => setSelectedRunId(null)}
+                  />
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Drawer>
