@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Drawer } from 'antd'
+import './style.less'
 import DrawerTitle from '../common/DrawerTitle'
 import HeaderBar from './components/HeaderBar'
 import JobTabs from './components/JobTabs'

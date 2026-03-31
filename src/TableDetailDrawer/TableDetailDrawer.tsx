@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Button, Drawer, Input, Table, Tabs, Tag, Tooltip, Typography } from 'antd'
+import './style.css'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
 import { mockDatasetVersions, DatasetVersion } from './mock'

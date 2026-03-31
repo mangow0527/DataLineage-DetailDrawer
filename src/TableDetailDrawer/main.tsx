@@ -1,6 +1,5 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import './style.css'
 import TableDetailDrawer from './TableDetailDrawer'
 
 const el = document.getElementById('root')
