@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Drawer, Typography } from 'antd'
+import { Drawer } from 'antd'
 import DrawerTitle from '../common/DrawerTitle'
 import HeaderBar from './components/HeaderBar'
 import JobTabs from './components/JobTabs'
@@ -93,9 +93,26 @@ export default function ToolNodeDrawer({
 
         <div style={{ padding: 16 }}>
           {loading ? (
-            <Typography.Text>Loading...</Typography.Text>
+            <div
+              style={{
+                fontSize: 14,
+                lineHeight: '22px',
+                color:
+                  currentTheme === 'darknight' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+              }}
+            >
+              Loading...
+            </div>
           ) : !viewModel ? (
-            <Typography.Text type="danger">加载失败：未获取到 Job 详情数据</Typography.Text>
+            <div
+              style={{
+                fontSize: 14,
+                lineHeight: '22px',
+                color: currentTheme === 'darknight' ? '#ff7875' : '#ff4d4f'
+              }}
+            >
+              加载失败：未获取到 Job 详情数据
+            </div>
           ) : (
             <>
               <SummaryGrid summary={viewModel.summary} />
