@@ -225,6 +225,57 @@ body {
   margin-top: 16px;
 }
 
+.tool-header-bar {
+  width: 848px;
+  height: 42px;
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: 140px 186px 186px 84px 112px;
+  column-gap: 35px;
+  align-items: flex-start;
+}
+
+.tool-header-bar__item {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.tool-header-bar__label {
+  font-family: var(--dl-font-sans);
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(128, 128, 128, 1);
+}
+
+.tool-header-bar__value {
+  font-family: var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(26, 26, 26, 1);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-shell[data-theme='evening'] .tool-header-bar__label {
+  color: rgba(201, 201, 201, 1);
+}
+
+.drawer-shell[data-theme='evening'] .tool-header-bar__value {
+  color: rgba(255, 255, 255, 1);
+}
+
 .code-block {
   border: 1px solid var(--dl-border-soft);
   border-radius: var(--dl-radius-sm);

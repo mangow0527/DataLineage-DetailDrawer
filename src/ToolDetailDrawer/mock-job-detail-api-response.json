@@ -39,7 +39,7 @@
       "updatedAt": "2020-12-28T10:52:00.001Z",
       "nominalStartTime": null,
       "nominalEndTime": null,
-      "state": "COMPLETED",
+      "state": "COMPLETE",
       "startedAt": "2020-12-28T09:52:00.001Z",
       "endedAt": "2020-12-28T10:52:00.001Z",
       "durationMs": 3600000,

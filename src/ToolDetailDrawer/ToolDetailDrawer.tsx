@@ -6,7 +6,7 @@ import HeaderCard from '../common/HeaderCard'
 import JobTabs from './components/JobTabs'
 import LatestRunPanel from './components/LatestRunPanel'
 import RunHistoryPanel from './components/RunHistoryPanel'
-import SummaryGrid from './components/SummaryGrid'
+import ToolHeaderBar from './components/ToolHeaderBar'
 import { loadToolDetail } from './data/data-extractor'
 import type { JobDetailViewModel } from './data/view-model'
 
@@ -126,31 +126,29 @@ export default function ToolDetailDrawer({
             </div>
           ) : (
             <>
+              <ToolHeaderBar summary={viewModel.summary} />
+
               <div className="drawer-body">
-                <SummaryGrid summary={viewModel.summary} />
+                <JobTabs
+                  activeTab={activeTab}
+                  onChange={(tab) => {
+                    setActiveTab(tab)
+                    setSelectedRunId(null)
+                  }}
+                />
 
-                <div style={{ marginTop: 16 }}>
-                  <JobTabs
-                    activeTab={activeTab}
-                    onChange={(tab) => {
-                      setActiveTab(tab)
-                      setSelectedRunId(null)
-                    }}
+                {activeTab === 'latestRun' ? (
+                  <LatestRunPanel latestRun={viewModel.latestRun} />
+                ) : (
+                  <RunHistoryPanel
+                    selectedRunId={selectedRunId}
+                    selectedRun={selectedRun}
+                    items={viewModel.runHistory.items}
+                    jobFacets={viewModel.latestRun.jobFacets}
+                    onSelectRun={setSelectedRunId}
+                    onBack={() => setSelectedRunId(null)}
                   />
-
-                  {activeTab === 'latestRun' ? (
-                    <LatestRunPanel latestRun={viewModel.latestRun} />
-                  ) : (
-                    <RunHistoryPanel
-                      selectedRunId={selectedRunId}
-                      selectedRun={selectedRun}
-                      items={viewModel.runHistory.items}
-                      jobFacets={viewModel.latestRun.jobFacets}
-                      onSelectRun={setSelectedRunId}
-                      onBack={() => setSelectedRunId(null)}
-                    />
-                  )}
-                </div>
+                )}
               </div>
             </>
           )}

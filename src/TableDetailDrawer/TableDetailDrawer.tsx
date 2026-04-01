@@ -1,25 +1,45 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button, Drawer, Input, Table, Tabs, Tag, Tooltip, Typography } from 'antd'
 import '../ToolDetailDrawer/style.less'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
 import DrawerTitle from '../common/DrawerTitle'
 import HeaderCard from '../common/HeaderCard'
-import { mockDatasetVersions, DatasetVersion } from './mock'
+import { loadDatasetDetail } from './data/data-extractor'
+import type { DatasetDetailViewModel, DatasetVersionViewModel } from './data/view-model'
 
 export default function App() {
   const [open, setOpen] = useState(true)
   const [activeTab, setActiveTab] = useState<'latestSchema' | 'versionHistory'>('latestSchema')
   const [selectedVersion, setSelectedVersion] = useState<string | null>(null)
   const [currentTheme, setCurrentTheme] = useState<'lightday' | 'evening'>('lightday')
+  const [viewModel, setViewModel] = useState<DatasetDetailViewModel | null>(null)
+  const [loading, setLoading] = useState(false)
 
-  const list = useMemo(() => mockDatasetVersions, [])
-  const head = list.versions[0]
+  useEffect(() => {
+    if (!open) return
+    let alive = true
+    setLoading(true)
+    loadDatasetDetail({ namespace: 'public', name: 'restaurants' })
+      .then((vm) => {
+        if (!alive) return
+        setViewModel(vm)
+      })
+      .finally(() => {
+        if (!alive) return
+        setLoading(false)
+      })
+    return () => {
+      alive = false
+    }
+  }, [open])
+
+  const head = viewModel?.versions[0] ?? null
 
   const ver = useMemo(() => {
     if (!selectedVersion) return null
-    return list.versions.find((v) => v.version === selectedVersion) ?? null
-  }, [list, selectedVersion])
+    return viewModel?.versions.find((v) => v.version === selectedVersion) ?? null
+  }, [selectedVersion, viewModel])
 
   if (!open) {
     return (
@@ -87,13 +107,15 @@ export default function App() {
           </div>
 
           <div className="drawer-content">
-            <HeaderCard
-              variant="table"
-              theme={currentTheme}
-              title={`${head.physicalName ?? `${head.namespace}.${head.name}`} - extremely-long-dataset-title-for-overflow-preview-abcdefghijklmnopqrstuvwxyz-0123456789-abcdefghijklmnopqrstuvwxyz-0123456789-abcdefghijklmnopqrstuvwxyz`}
-              updatedAt={head.createdAt}
-              columnCount={head.fields.length}
-            />
+            {viewModel ? (
+              <HeaderCard
+                variant="table"
+                theme={currentTheme}
+                title={viewModel.header.title}
+                updatedAt={viewModel.header.updatedAt}
+                columnCount={viewModel.header.columnCount}
+              />
+            ) : null}
             <div style={{ marginTop: 16 }}>
               <Tabs
                 activeKey={activeTab}
@@ -110,6 +132,18 @@ export default function App() {
                     label: 'LATEST SCHEMA',
                     children: (
                       <div>
+                        {loading ? (
+                          <div
+                            style={{
+                              fontSize: 14,
+                              lineHeight: '22px',
+                              color:
+                                currentTheme === 'evening' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+                            }}
+                          >
+                            Loading...
+                          </div>
+                        ) : null}
                         {selectedVersion ? (
                           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                             <Button type="text" size="small" onClick={() => setSelectedVersion(null)}>
@@ -162,7 +196,7 @@ export default function App() {
 
                         <div style={{ marginTop: 16 }}>
                           <Typography.Text strong>FACETS</Typography.Text>
-                          <JsonTree data={(selectedVersion ? ver : head)?.facets ?? {}} />
+                          <JsonTree data={(selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}} />
                         </div>
                       </div>
                     )
@@ -174,9 +208,9 @@ export default function App() {
                       <Table
                         size="small"
                         rowKey="version"
-                        dataSource={list.versions}
+                        dataSource={viewModel?.versions ?? []}
                         pagination={false}
-                        onRow={(record: DatasetVersion) => ({
+                        onRow={(record: DatasetVersionViewModel) => ({
                           onClick: () => {
                             setSelectedVersion(record.version)
                             setActiveTab('latestSchema')

@@ -7,7 +7,7 @@ export type DocumentationJobFacet = {
 export type JobTypeJobFacet = {
   _producer: string
   _schemaURL: string
-  processingType: string
+  processingType: JobType
   integration: string
   jobType: string
 }
@@ -38,7 +38,7 @@ export type RunApi = {
   updatedAt: string
   nominalStartTime: string | null
   nominalEndTime: string | null
-  state: string
+  state: RunState
   startedAt: string | null
   endedAt: string | null
   durationMs: number | null
@@ -54,9 +54,13 @@ export type RunApi = {
   facets: Record<string, unknown>
 }
 
+export type JobType = 'BATCH' | 'STREAM'
+
+export type RunState = 'START' | 'RUNNING' | 'COMPLETE' | 'ABORT' | 'FAIL' | 'OTHER'
+
 export type JobDetailApi = {
   id: string
-  type: string
+  type: JobType
   name: string
   parentJobName: string | null
   parentJobUuid: string | null

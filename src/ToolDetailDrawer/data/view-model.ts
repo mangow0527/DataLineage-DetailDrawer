@@ -1,6 +1,8 @@
+import type { JobType, RunState } from './api-types'
+
 export type HeaderViewModel = {
   title: string
-  type: string | null
+  type: JobType | null
   createdAt: string | null
   updatedAt: string | null
 }
@@ -9,16 +11,16 @@ export type SummaryViewModel = {
   createdAt: string | null
   updatedAt: string | null
   lastRuntimeMs: number | null
-  type: string | null
+  type: JobType | null
   lastStartedAt: string | null
   lastFinishedAt: string | null
-  runningStatus: string | null
+  runningStatus: RunState | null
   parentJobName: string | null
 }
 
 export type RunHistoryItemViewModel = {
   id: string
-  state: string
+  state: RunState
   createdAt: string | null
   startedAt: string | null
   endedAt: string | null

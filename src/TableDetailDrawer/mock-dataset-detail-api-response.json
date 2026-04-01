@@ -1,0 +1,28 @@
+{
+  "retCode": 0,
+  "retInfo": "success",
+  "i18nKey": "dte.datalineage.ok",
+  "data": {
+    "namespace": "public",
+    "name": "restaurants",
+    "physicalName": "public.restaurants",
+    "updatedAt": "2025-10-29T03:10:00Z",
+    "facets": {
+      "schema": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DatasetSchemaDatasetFacet.json",
+        "fields": 5
+      },
+      "documentation": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DocumentationDatasetFacet.json",
+        "description": "A table for restaurants."
+      },
+      "datasetType": {
+        "_producer": "https://github.com/MarquezProject/marquez/blob/main/docker/metadata.json",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DatasetTypeDatasetFacet.json",
+        "type": "DB_TABLE"
+      }
+    }
+  }
+}
