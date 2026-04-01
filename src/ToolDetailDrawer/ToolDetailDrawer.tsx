@@ -3,7 +3,7 @@ import { Drawer } from 'antd'
 import './style.less'
 import DrawerTitle from '../common/DrawerTitle'
 import HeaderCard from '../common/HeaderCard'
-import JobTabs from './components/JobTabs'
+import DrawerTabs from '../common/DrawerTabs'
 import LatestRunPanel from './components/LatestRunPanel'
 import RunHistoryPanel from './components/RunHistoryPanel'
 import ToolHeaderBar from './components/ToolHeaderBar'
@@ -129,26 +129,28 @@ export default function ToolDetailDrawer({
               <ToolHeaderBar summary={viewModel.summary} />
 
               <div className="drawer-body">
-                <JobTabs
-                  activeTab={activeTab}
-                  onChange={(tab) => {
-                    setActiveTab(tab)
+                <DrawerTabs
+                  activeKey={activeTab}
+                  onChange={(k) => {
+                    const next = k === 'runHistory' ? 'runHistory' : 'latestRun'
+                    setActiveTab(next)
                     setSelectedRunId(null)
                   }}
-                />
-
-                {activeTab === 'latestRun' ? (
-                  <LatestRunPanel latestRun={viewModel.latestRun} />
-                ) : (
-                  <RunHistoryPanel
-                    selectedRunId={selectedRunId}
-                    selectedRun={selectedRun}
-                    items={viewModel.runHistory.items}
-                    jobFacets={viewModel.latestRun.jobFacets}
-                    onSelectRun={setSelectedRunId}
-                    onBack={() => setSelectedRunId(null)}
-                  />
-                )}
+                >
+                  <DrawerTabs.Item tabKey="latestRun" label="最新信息">
+                    <LatestRunPanel latestRun={viewModel.latestRun} />
+                  </DrawerTabs.Item>
+                  <DrawerTabs.Item tabKey="runHistory" label="运行历史">
+                    <RunHistoryPanel
+                      selectedRunId={selectedRunId}
+                      selectedRun={selectedRun}
+                      items={viewModel.runHistory.items}
+                      jobFacets={viewModel.latestRun.jobFacets}
+                      onSelectRun={setSelectedRunId}
+                      onBack={() => setSelectedRunId(null)}
+                    />
+                  </DrawerTabs.Item>
+                </DrawerTabs>
               </div>
             </>
           )}

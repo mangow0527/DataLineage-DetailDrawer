@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Drawer, Input, Table, Tabs, Tag, Tooltip, Typography } from 'antd'
+import { Button, Drawer, Input, Table, Tag, Tooltip, Typography } from 'antd'
 import '../ToolDetailDrawer/style.less'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
 import DrawerTitle from '../common/DrawerTitle'
 import HeaderCard from '../common/HeaderCard'
+import DrawerTabs from '../common/DrawerTabs'
 import { loadDatasetDetail } from './data/data-extractor'
 import type { DatasetDetailViewModel, DatasetVersionViewModel } from './data/view-model'
 
@@ -117,7 +118,7 @@ export default function App() {
               />
             ) : null}
             <div style={{ marginTop: 16 }}>
-              <Tabs
+              <DrawerTabs
                 activeKey={activeTab}
                 onChange={(k) => {
                   const next = k === 'versionHistory' ? 'versionHistory' : 'latestSchema'
@@ -126,125 +127,116 @@ export default function App() {
                     setSelectedVersion(null)
                   }
                 }}
-                items={[
-                  {
-                    key: 'latestSchema',
-                    label: 'LATEST SCHEMA',
-                    children: (
-                      <div>
-                        {loading ? (
-                          <div
+              >
+                <DrawerTabs.Item tabKey="latestSchema" label="最新信息">
+                  <div>
+                    {loading ? (
+                      <div
+                        style={{
+                          fontSize: 14,
+                          lineHeight: '22px',
+                          color: currentTheme === 'evening' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+                        }}
+                      >
+                        Loading...
+                      </div>
+                    ) : null}
+                    {selectedVersion ? (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                        <Button type="text" size="small" onClick={() => setSelectedVersion(null)}>
+                          ‹
+                        </Button>
+                        <Input
+                          size="small"
+                          value={selectedVersion}
+                          readOnly
+                          style={{ maxWidth: 520 }}
+                          addonAfter={
+                            <Tooltip title="Copy Version ID">
+                              <Button
+                                type="text"
+                                size="small"
+                                onClick={() => selectedVersion && navigator.clipboard?.writeText(selectedVersion)}
+                              >
+                                Copy
+                              </Button>
+                            </Tooltip>
+                          }
+                        />
+                      </div>
+                    ) : null}
+
+                    <Table
+                      size="small"
+                      rowKey="name"
+                      dataSource={(selectedVersion ? ver : head)?.fields ?? []}
+                      pagination={false}
+                      columns={[
+                        {
+                          title: 'NAME',
+                          dataIndex: 'name',
+                          render: (v: string) => (
+                            <span
+                              style={{
+                                fontFamily:
+                                  'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+                              }}
+                            >
+                              {v}
+                            </span>
+                          )
+                        },
+                        { title: 'TYPE', dataIndex: 'type', render: (v: string) => <Tag>{v}</Tag> },
+                        { title: 'DESCRIPTION', dataIndex: 'description', ellipsis: true }
+                      ]}
+                    />
+
+                    <div style={{ marginTop: 16 }}>
+                      <Typography.Text strong>FACETS</Typography.Text>
+                      <JsonTree data={(selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}} />
+                    </div>
+                  </div>
+                </DrawerTabs.Item>
+
+                <DrawerTabs.Item tabKey="versionHistory" label="历史版本">
+                  <Table
+                    size="small"
+                    rowKey="version"
+                    dataSource={viewModel?.versions ?? []}
+                    pagination={false}
+                    onRow={(record: DatasetVersionViewModel) => ({
+                      onClick: () => {
+                        setSelectedVersion(record.version)
+                        setActiveTab('latestSchema')
+                      }
+                    })}
+                    columns={[
+                      {
+                        title: 'VERSION',
+                        dataIndex: 'version',
+                        render: (v: string) => (
+                          <span
                             style={{
-                              fontSize: 14,
-                              lineHeight: '22px',
-                              color:
-                                currentTheme === 'evening' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+                              fontFamily:
+                                'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
                             }}
                           >
-                            Loading...
-                          </div>
-                        ) : null}
-                        {selectedVersion ? (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                            <Button type="text" size="small" onClick={() => setSelectedVersion(null)}>
-                              ‹
-                            </Button>
-                            <Input
-                              size="small"
-                              value={selectedVersion}
-                              readOnly
-                              style={{ maxWidth: 520 }}
-                              addonAfter={
-                                <Tooltip title="Copy Version ID">
-                                  <Button
-                                    type="text"
-                                    size="small"
-                                    onClick={() => selectedVersion && navigator.clipboard?.writeText(selectedVersion)}
-                                  >
-                                    Copy
-                                  </Button>
-                                </Tooltip>
-                              }
-                            />
-                          </div>
-                        ) : null}
-
-                        <Table
-                          size="small"
-                          rowKey="name"
-                          dataSource={(selectedVersion ? ver : head)?.fields ?? []}
-                          pagination={false}
-                          columns={[
-                            {
-                              title: 'NAME',
-                              dataIndex: 'name',
-                              render: (v: string) => (
-                                <span
-                                  style={{
-                                    fontFamily:
-                                      'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-                                  }}
-                                >
-                                  {v}
-                                </span>
-                              )
-                            },
-                            { title: 'TYPE', dataIndex: 'type', render: (v: string) => <Tag>{v}</Tag> },
-                            { title: 'DESCRIPTION', dataIndex: 'description', ellipsis: true }
-                          ]}
-                        />
-
-                        <div style={{ marginTop: 16 }}>
-                          <Typography.Text strong>FACETS</Typography.Text>
-                          <JsonTree data={(selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}} />
-                        </div>
-                      </div>
-                    )
-                  },
-                  {
-                    key: 'versionHistory',
-                    label: 'VERSION HISTORY',
-                    children: (
-                      <Table
-                        size="small"
-                        rowKey="version"
-                        dataSource={viewModel?.versions ?? []}
-                        pagination={false}
-                        onRow={(record: DatasetVersionViewModel) => ({
-                          onClick: () => {
-                            setSelectedVersion(record.version)
-                            setActiveTab('latestSchema')
-                          }
-                        })}
-                        columns={[
-                          {
-                            title: 'VERSION',
-                            dataIndex: 'version',
-                            render: (v: string) => (
-                              <span
-                                style={{
-                                  fontFamily:
-                                    'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-                                }}
-                              >
-                                {v.slice(0, 8)}...
-                              </span>
-                            )
-                          },
-                          { title: 'CREATED AT', dataIndex: 'createdAt', render: fmtDate },
-                          { title: 'FIELDS', dataIndex: 'fields', render: (f: any[]) => f?.length ?? 0 },
-                          {
-                            title: 'CREATED BY RUN',
-                            dataIndex: 'createdByRun',
-                            render: (v: { id: string } | null) => (v?.id ? `${v.id.slice(0, 8)}...` : 'N/A')
-                          },
-                          { title: 'LIFECYCLE STATE', dataIndex: 'lifecycleState', render: (v: string) => v || 'N/A' }
-                        ]}
-                      />
-                    )
-                  }
-                ]}
-              />
+                            {v.slice(0, 8)}...
+                          </span>
+                        )
+                      },
+                      { title: 'CREATED AT', dataIndex: 'createdAt', render: fmtDate },
+                      { title: 'FIELDS', dataIndex: 'fields', render: (f: any[]) => f?.length ?? 0 },
+                      {
+                        title: 'CREATED BY RUN',
+                        dataIndex: 'createdByRun',
+                        render: (v: { id: string } | null) => (v?.id ? `${v.id.slice(0, 8)}...` : 'N/A')
+                      },
+                      { title: 'LIFECYCLE STATE', dataIndex: 'lifecycleState', render: (v: string) => v || 'N/A' }
+                    ]}
+                  />
+                </DrawerTabs.Item>
+              </DrawerTabs>
             </div>
           </div>
         </div>

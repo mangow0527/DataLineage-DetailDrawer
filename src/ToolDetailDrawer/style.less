@@ -312,24 +312,66 @@ body {
   border-radius: 8px;
 }
 
+.drawer-shell .ant-tabs > .ant-tabs-nav::before {
+  border-bottom: 0;
+}
+
+.drawer-shell .ant-tabs > .ant-tabs-nav {
+  margin: 0;
+}
+
 .drawer-shell .ant-tabs .ant-tabs-ink-bar {
   background: var(--dl-focus);
 }
 
 .drawer-shell .ant-tabs .ant-tabs-tab {
-  font-family: var(--dl-font-sans);
+  position: relative;
 }
 
-.drawer-shell .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: var(--dl-text-primary);
+.drawer-shell .ant-tabs .ant-tabs-tab + .ant-tabs-tab::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  transform: translateY(-50%);
+  background: var(--dl-border-soft);
+  pointer-events: none;
+}
+
+.drawer-shell[data-theme='evening'] .ant-tabs .ant-tabs-tab + .ant-tabs-tab::before {
+  background: var(--dl-border);
 }
 
 .drawer-shell .ant-tabs .ant-tabs-tab-btn {
-  color: var(--dl-text-tertiary);
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(77, 77, 77, 1);
 }
 
 .drawer-shell .ant-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
-  color: var(--dl-focus);
+  color: rgba(38, 115, 229, 1);
+}
+
+.drawer-shell .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgba(38, 115, 229, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-tabs .ant-tabs-tab-btn {
+  color: rgba(179, 179, 179, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
+  color: rgba(51, 136, 255, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgba(51, 136, 255, 1);
 }
 
 .drawer-shell .ant-table-wrapper .ant-table {
