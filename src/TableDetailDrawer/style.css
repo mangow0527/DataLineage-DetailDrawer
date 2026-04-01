@@ -13,6 +13,6 @@ body {
   background: rgba(255, 255, 255, 1);
 }
 
-.drawer-shell[data-theme='darknight'] {
+.drawer-shell[data-theme='evening'] {
   background: rgba(42, 42, 42, 1);
 }

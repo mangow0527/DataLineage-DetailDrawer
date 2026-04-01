@@ -9,7 +9,7 @@ export default function App() {
   const [open, setOpen] = useState(true)
   const [activeTab, setActiveTab] = useState<'latestSchema' | 'versionHistory'>('latestSchema')
   const [selectedVersion, setSelectedVersion] = useState<string | null>(null)
-  const [currentTheme, setCurrentTheme] = useState<'lightday' | 'darknight'>('lightday')
+  const [currentTheme, setCurrentTheme] = useState<'lightday' | 'evening'>('lightday')
 
   const list = useMemo(() => mockDatasetVersions, [])
   const head = list.versions[0]
@@ -44,7 +44,7 @@ export default function App() {
       >
         <button
           type="button"
-          onClick={() => setCurrentTheme((t) => (t === 'lightday' ? 'darknight' : 'lightday'))}
+          onClick={() => setCurrentTheme((t) => (t === 'lightday' ? 'evening' : 'lightday'))}
           style={{
             appearance: 'none',
             border: '1px solid #d9d9d9',

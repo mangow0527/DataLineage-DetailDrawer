@@ -12,7 +12,7 @@ createRoot(el).render(
 
 function Demo() {
   const [toolDrawerVisible, setToolDrawerVisible] = React.useState(true)
-  const [currentTheme, setCurrentTheme] = React.useState<'lightday' | 'darknight'>('lightday')
+  const [currentTheme, setCurrentTheme] = React.useState<'lightday' | 'evening'>('lightday')
   const [currentNodeData] = React.useState<{ namespace: string; name: string } | null>({
     namespace: 'my-namespace',
     name: 'test-job-01'
@@ -33,7 +33,7 @@ function Demo() {
       >
         <button
           type="button"
-          onClick={() => setCurrentTheme((t) => (t === 'lightday' ? 'darknight' : 'lightday'))}
+          onClick={() => setCurrentTheme((t) => (t === 'lightday' ? 'evening' : 'lightday'))}
           style={{
             appearance: 'none',
             border: '1px solid #d9d9d9',

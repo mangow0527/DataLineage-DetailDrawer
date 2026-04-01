@@ -17,7 +17,7 @@ export type ToolDetailDrawerProps = {
   baseUrl?: string
   pageNo?: number
   pageSize?: number
-  currentTheme?: 'lightday' | 'darknight'
+  currentTheme?: 'lightday' | 'evening'
 }
 
 export default function ToolDetailDrawer({
@@ -110,7 +110,7 @@ export default function ToolDetailDrawer({
                 fontSize: 14,
                 lineHeight: '22px',
                 color:
-                  currentTheme === 'darknight' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+                  currentTheme === 'evening' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
               }}
             >
               Loading...
@@ -120,7 +120,7 @@ export default function ToolDetailDrawer({
               style={{
                 fontSize: 14,
                 lineHeight: '22px',
-                color: currentTheme === 'darknight' ? '#ff7875' : '#ff4d4f'
+                color: currentTheme === 'evening' ? '#ff7875' : '#ff4d4f'
               }}
             >
               加载失败：未获取到 Job 详情数据

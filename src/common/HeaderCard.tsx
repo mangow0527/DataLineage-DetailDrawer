@@ -4,7 +4,7 @@ import './HeaderCard.less'
 
 export type HeaderCardProps = {
   variant: 'tool' | 'table'
-  theme: 'lightday' | 'darknight'
+  theme: 'lightday' | 'evening'
   title: string
   type?: string | null
   createdAt?: string | null

@@ -7,7 +7,7 @@ type DrawerTitleProps = {
 
 export default function DrawerTitle({ currentTheme, onClose }: DrawerTitleProps) {
   const isLight = currentTheme === 'lightday'
-  const theme = isLight ? 'lightday' : 'darknight'
+  const theme = isLight ? 'lightday' : 'evening'
   const closeIcon = isLight ? drawerImgs.CLOSE_LIGHT : drawerImgs.CLOSE_DARK
   const deleteIcon = isLight ? drawerImgs.DELETE_LIGHT : drawerImgs.DELETE_DARK
 
