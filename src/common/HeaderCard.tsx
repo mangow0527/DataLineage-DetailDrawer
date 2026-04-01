@@ -1,4 +1,6 @@
-import type { ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { Tooltip } from 'antd'
+import drawerImgs from './DrawerImgs'
 import { fmtDate } from './format'
 import './HeaderCard.less'
 
@@ -6,7 +8,6 @@ export type HeaderCardProps = {
   variant: 'tool' | 'table'
   theme: 'lightday' | 'evening'
   title: string
-  type?: string | null
   createdAt?: string | null
   updatedAt?: string | null
   columnCount?: number | null
@@ -38,42 +39,40 @@ function toCssUrl(value: string) {
   return `url(${trimmed})`
 }
 
-function GridSvgIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
-      <rect x="14" y="3" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
-      <rect x="3" y="14" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
-      <rect x="14" y="14" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  )
-}
+function useTextOverflow(value: string) {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [isOverflowing, setIsOverflowing] = useState(false)
 
-function CalendarSvgIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2" />
-      <path d="M3 10h18" stroke="currentColor" strokeWidth="2" />
-      <path d="M8 3v4M16 3v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  )
-}
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    setIsOverflowing(el.scrollWidth > el.clientWidth)
+  }, [value])
 
-function ColumnsSvgIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-      <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="2" />
-      <path d="M12 5v14" stroke="currentColor" strokeWidth="2" />
-      <path d="M4 10h16" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  )
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const recalc = () => setIsOverflowing(el.scrollWidth > el.clientWidth)
+    recalc()
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => recalc())
+      ro.observe(el)
+      return () => ro.disconnect()
+    }
+
+    window.addEventListener('resize', recalc)
+    return () => window.removeEventListener('resize', recalc)
+  }, [value])
+
+  return { ref, isOverflowing }
 }
 
 export default function HeaderCard({
   variant,
   theme,
   title,
-  type,
   createdAt,
   updatedAt,
   columnCount,
@@ -90,6 +89,15 @@ export default function HeaderCard({
   const basePath = assetBasePath ?? getAssetBasePath()
   const defaultBgUrl = basePath ? `${basePath}${defaultBgPath}` : `/${defaultBgPath}`
   const resolvedBgImage = toCssUrl(backgroundImage ?? defaultBgUrl)
+  const { ref: titleRef, isOverflowing: isTitleOverflowing } = useTextOverflow(title)
+  const tooltipColor = theme === 'lightday' ? '#ffffff' : '#000000'
+  const tooltipInnerStyle = theme === 'lightday' ? { color: '#000000' } : { color: '#ffffff' }
+  const categoryValue = variant === 'tool' ? 'Tool' : 'Table'
+  const isLight = theme === 'lightday'
+  const defaultCategoryIcon = isLight ? drawerImgs.HEADER_CARD_CATEGORY_LIGHT : drawerImgs.HEADER_CARD_CATEGORY_DARK
+  const defaultTimeIcon = isLight ? drawerImgs.HEADER_CARD_TIME_LIGHT : drawerImgs.HEADER_CARD_TIME_DARK
+  const defaultColumnsIcon = isLight ? drawerImgs.HEADER_CARD_COLUMNS_LIGHT : drawerImgs.HEADER_CARD_COLUMNS_DARK
+
   return (
     <div
       className="job-header-card"
@@ -101,47 +109,68 @@ export default function HeaderCard({
       }}
     >
       <div className="job-header-card__group">
-        <div className="job-header-card__title">{title}</div>
+        <Tooltip
+          title={isTitleOverflowing ? title : null}
+          color={tooltipColor}
+          overlayInnerStyle={tooltipInnerStyle}
+        >
+          <div ref={titleRef} className="job-header-card__title">
+            {title}
+          </div>
+        </Tooltip>
         <div className="job-header-card__meta">
           <div className="job-header-card__meta-item">
             <span className="job-header-card__meta-icon" aria-hidden="true">
-              {categoryIcon ?? <GridSvgIcon />}
+              {categoryIcon ?? defaultCategoryIcon}
             </span>
             <div className="job-header-card__meta-text">
+              <div className="job-header-card__meta-value">{categoryValue}</div>
               <div className="job-header-card__meta-label">类别</div>
-              <div className="job-header-card__meta-value">{type || 'N/A'}</div>
             </div>
           </div>
           {variant === 'tool' ? (
-            <div className="job-header-card__meta-item">
-              <span className="job-header-card__meta-icon" aria-hidden="true">
-                {createdAtIcon ?? <CalendarSvgIcon />}
-              </span>
-              <div className="job-header-card__meta-text">
-                <div className="job-header-card__meta-label">创建时间</div>
-                <div className="job-header-card__meta-value">{fmtDate(createdAt ?? null)}</div>
+            <>
+              <div className="job-header-card__meta-item">
+                <span className="job-header-card__meta-icon" aria-hidden="true">
+                  {createdAtIcon ?? defaultTimeIcon}
+                </span>
+                <div className="job-header-card__meta-text">
+                  <div className="job-header-card__meta-value">{fmtDate(createdAt ?? null)}</div>
+                  <div className="job-header-card__meta-label">创建时间</div>
+                </div>
               </div>
-            </div>
+              <div className="job-header-card__meta-item">
+                <span className="job-header-card__meta-icon" aria-hidden="true">
+                  {updatedAtIcon ?? defaultTimeIcon}
+                </span>
+                <div className="job-header-card__meta-text">
+                  <div className="job-header-card__meta-value">{fmtDate(updatedAt ?? null)}</div>
+                  <div className="job-header-card__meta-label">最后修改时间</div>
+                </div>
+              </div>
+            </>
           ) : (
-            <div className="job-header-card__meta-item">
-              <span className="job-header-card__meta-icon" aria-hidden="true">
-                {columnCountIcon ?? <ColumnsSvgIcon />}
-              </span>
-              <div className="job-header-card__meta-text">
-                <div className="job-header-card__meta-label">列数量</div>
-                <div className="job-header-card__meta-value">{columnCount ?? 'N/A'}</div>
+            <>
+              <div className="job-header-card__meta-item">
+                <span className="job-header-card__meta-icon" aria-hidden="true">
+                  {updatedAtIcon ?? defaultTimeIcon}
+                </span>
+                <div className="job-header-card__meta-text">
+                  <div className="job-header-card__meta-value">{fmtDate(updatedAt ?? null)}</div>
+                  <div className="job-header-card__meta-label">最后修改时间</div>
+                </div>
               </div>
-            </div>
+              <div className="job-header-card__meta-item">
+                <span className="job-header-card__meta-icon" aria-hidden="true">
+                  {columnCountIcon ?? defaultColumnsIcon}
+                </span>
+                <div className="job-header-card__meta-text">
+                  <div className="job-header-card__meta-value">{columnCount ?? 'N/A'}</div>
+                  <div className="job-header-card__meta-label">列数量</div>
+                </div>
+              </div>
+            </>
           )}
-          <div className="job-header-card__meta-item">
-            <span className="job-header-card__meta-icon" aria-hidden="true">
-              {updatedAtIcon ?? <CalendarSvgIcon />}
-            </span>
-            <div className="job-header-card__meta-text">
-              <div className="job-header-card__meta-label">最后修改时间</div>
-              <div className="job-header-card__meta-value">{fmtDate(updatedAt ?? null)}</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -7,30 +7,54 @@
   background-repeat: no-repeat;
   height: 150px;
   width: 100%;
-  color: #0b0b0b;
+  --hc-title-color: rgba(25, 25, 25, 1);
+  --hc-label-color: rgba(119, 119, 119, 1);
+  --hc-value-color: rgba(25, 25, 25, 1);
+  --hc-icon-bg: rgba(255, 255, 255, 0.25);
+  --hc-icon-color: rgba(25, 25, 25, 1);
+  color: var(--hc-title-color);
   position: relative;
   overflow: hidden;
   margin: 0;
 }
 
+.job-header-card[data-theme='evening'] {
+  --hc-title-color: rgba(230, 230, 230, 1);
+  --hc-label-color: rgba(179, 179, 179, 1);
+  --hc-value-color: rgba(230, 230, 230, 1);
+  --hc-icon-bg: rgba(255, 255, 255, 0.12);
+  --hc-icon-color: rgba(230, 230, 230, 1);
+}
+
 .job-header-card__title {
   text-align: left;
-  font-size: 28px;
-  line-height: 1.25;
+  font-family: HarmonyOS Sans SC, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 26px;
   font-weight: 500;
-  margin-bottom: 18px;
+  letter-spacing: 0px;
+  margin: 0 0 18px 0;
+  min-width: 0;
+  width: calc(100% + var(--job-header-card-inset-right, 120px));
+  max-width: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--hc-title-color);
 }
 
 .job-header-card__group {
+  --job-header-card-inset-right: 120px;
   position: absolute;
   top: 20px;
   left: 168px;
-  right: 120px;
+  right: var(--job-header-card-inset-right);
   bottom: 20px;
   background: transparent;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  min-width: 0;
 }
 
 .job-header-card__meta {
@@ -56,13 +80,13 @@
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--hc-icon-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
   font-size: 18px;
-  color: #0b0b0b;
+  color: var(--hc-icon-color);
 }
 
 .job-header-card__meta-icon svg {
@@ -73,15 +97,30 @@
 
 .job-header-card__meta-text {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .job-header-card__meta-label {
+  font-family: HarmonyOS Sans SC, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   font-size: 12px;
-  opacity: 0.9;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
+  color: var(--hc-label-color);
+  opacity: 1;
 }
 
 .job-header-card__meta-value {
+  font-family: HarmonyOS Sans SC, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: 0px;
+  text-align: left;
+  color: var(--hc-value-color);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   overflow: hidden;

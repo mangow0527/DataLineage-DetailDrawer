@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react'
 import { Button, Drawer, Input, Table, Tabs, Tag, Tooltip, Typography } from 'antd'
-import './style.css'
+import '../ToolDetailDrawer/style.less'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
+import DrawerTitle from '../common/DrawerTitle'
+import HeaderCard from '../common/HeaderCard'
 import { mockDatasetVersions, DatasetVersion } from './mock'
 
 export default function App() {
@@ -64,60 +66,34 @@ export default function App() {
       </div>
       <Drawer
         placement="right"
-        width={800}
+        width={896}
         open={open}
         closable={false}
-        styles={{ body: { padding: 0, height: '100%', display: 'flex', flexDirection: 'column' } }}
+        onClose={() => setOpen(false)}
+        styles={{
+          body: {
+            padding: 0,
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            overflow: 'hidden'
+          }
+        }}
       >
         <div className="drawer-shell" data-theme={currentTheme}>
-          <div style={{ borderBottom: '1px solid #f0f0f0', padding: 16, flex: '0 0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
-                <div
-                  aria-hidden
-                  style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: 8,
-                    background: '#1677ff',
-                    flex: '0 0 auto'
-                  }}
-                />
-                <Typography.Title level={4} style={{ margin: 0, minWidth: 0 }}>
-                  {head.physicalName ?? `${head.namespace}.${head.name}`}
-                </Typography.Title>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Button danger onClick={() => {}}>
-                  DELETE
-                </Button>
-                <Button type="text" onClick={() => setOpen(false)} aria-label="Close">
-                  ×
-                </Button>
-              </div>
-            </div>
+          <div className="drawer-title-section">
+            <DrawerTitle currentTheme={currentTheme} onClose={() => setOpen(false)} />
           </div>
 
-          <div style={{ padding: 16, overflowY: 'auto', flex: '1 1 auto', minHeight: 0 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
-              <div>
-                <div>UPDATED AT</div>
-                <div>{fmtDate(head.createdAt)}</div>
-              </div>
-              <div>
-                <div>DATASET TYPE</div>
-                <div>{head.type}</div>
-              </div>
-              <div>
-                <div>FIELDS</div>
-                <div>{`${head.fields.length} columns`}</div>
-              </div>
-              <div>
-                <div>QUALITY</div>
-                <div>N/A</div>
-              </div>
-            </div>
-
+          <div className="drawer-content">
+            <HeaderCard
+              variant="table"
+              theme={currentTheme}
+              title={`${head.physicalName ?? `${head.namespace}.${head.name}`} - extremely-long-dataset-title-for-overflow-preview-abcdefghijklmnopqrstuvwxyz-0123456789-abcdefghijklmnopqrstuvwxyz-0123456789-abcdefghijklmnopqrstuvwxyz`}
+              updatedAt={head.createdAt}
+              columnCount={head.fields.length}
+            />
             <div style={{ marginTop: 16 }}>
               <Tabs
                 activeKey={activeTab}
