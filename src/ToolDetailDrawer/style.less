@@ -306,6 +306,142 @@ body {
   background-clip: content-box;
 }
 
+.drawer-shell .ant-collapse-ghost > .ant-collapse-item {
+  border-bottom: 0;
+}
+
+.drawer-shell .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-header {
+  padding: 10px 0;
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(26, 26, 26, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-header {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content {
+  background: transparent;
+}
+
+.drawer-shell .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0 0 12px 0;
+}
+
+.latest-info-panels__body {
+  border-radius: 8px;
+  border: 0;
+  background: rgba(243, 243, 243, 1);
+  padding: 12px;
+}
+
+.latest-info-panels__body--tree {
+  overflow-x: auto;
+}
+
+.drawer-shell[data-theme='evening'] .latest-info-panels__body {
+  background: rgba(25, 25, 25, 1);
+}
+
+.latest-info-panels__code {
+  margin: 0;
+  overflow: auto;
+  white-space: pre;
+  font-family: var(--dl-font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dl-text-primary);
+}
+
+.latest-info-panels__kw {
+  color: #52c41a;
+  font-weight: 600;
+}
+
+.drawer-shell .ant-tree {
+  background: transparent;
+}
+
+.drawer-shell .dl-json-tree__row--expandable {
+  cursor: pointer;
+}
+
+.drawer-shell .dl-json-tree__row--expandable .dl-json-tree__copy {
+  cursor: pointer;
+}
+
+.drawer-shell .dl-json-tree__copy {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--dl-text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-shell .dl-json-tree__copy:hover {
+  color: var(--dl-focus);
+  background: rgba(38, 115, 229, 0.06);
+}
+
+.drawer-shell[data-theme='evening'] .dl-json-tree__copy:hover {
+  background: rgba(51, 136, 255, 0.10);
+}
+
+.drawer-shell .dl-json-tree__copy svg {
+  width: 16px;
+  height: 16px;
+}
+
+.drawer-shell .dl-json-tree__row {
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__label {
+  line-height: 22px;
+  color: rgba(26, 26, 26, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__items {
+  line-height: 22px;
+  color: rgba(26, 26, 26, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__preview {
+  line-height: 22px;
+  color: rgba(147, 134, 255, 1);
+}
+
+.drawer-shell .dl-json-tree__type {
+  color: rgba(196, 189, 255, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell[data-theme='evening'] .dl-json-tree__label {
+  color: rgba(25, 25, 25, 1);
+}
+
+.drawer-shell[data-theme='evening'] .dl-json-tree__items {
+  color: rgba(25, 25, 25, 1);
+}
+
 .drawer-shell :focus-visible {
   outline: 2px solid var(--dl-focus);
   outline-offset: 2px;

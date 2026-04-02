@@ -138,7 +138,7 @@ export default function ToolDetailDrawer({
                   }}
                 >
                   <DrawerTabs.Item tabKey="latestRun" label="最新信息">
-                    <LatestRunPanel latestRun={viewModel.latestRun} />
+                    <LatestRunPanel latestRun={viewModel.latestRun} theme={currentTheme} />
                   </DrawerTabs.Item>
                   <DrawerTabs.Item tabKey="runHistory" label="运行历史">
                     <RunHistoryPanel
@@ -146,6 +146,7 @@ export default function ToolDetailDrawer({
                       selectedRun={selectedRun}
                       items={viewModel.runHistory.items}
                       jobFacets={viewModel.latestRun.jobFacets}
+                      theme={currentTheme}
                       onSelectRun={setSelectedRunId}
                       onBack={() => setSelectedRunId(null)}
                     />

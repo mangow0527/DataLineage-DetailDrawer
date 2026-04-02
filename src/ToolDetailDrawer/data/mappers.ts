@@ -6,6 +6,13 @@ function getSqlText(response: JobDetailApiResponse): string | null {
   return sql ? sql : null
 }
 
+function getSourceCode(response: JobDetailApiResponse) {
+  const raw = response.data.facets.sourceCode?.sourceCode?.trim()
+  return {
+    sourceCodeText: raw ? raw : null
+  }
+}
+
 function mapRunItem(run: JobRunsApiResponse['data']['runs'][number], sqlText: string | null): RunHistoryItemViewModel {
   return {
     id: run.id,
@@ -21,6 +28,7 @@ function mapRunItem(run: JobRunsApiResponse['data']['runs'][number], sqlText: st
 
 export function mapJobDetailToViewModel(jobResponse: JobDetailApiResponse, runsResponse: JobRunsApiResponse): JobDetailViewModel {
   const sqlText = getSqlText(jobResponse)
+  const sourceCode = getSourceCode(jobResponse)
   const latestRun = jobResponse.data.latestRun
 
   return {
@@ -41,8 +49,8 @@ export function mapJobDetailToViewModel(jobResponse: JobDetailApiResponse, runsR
       parentJobName: jobResponse.data.parentJobName ?? null
     },
     latestRun: {
-      showSqlBlock: Boolean(sqlText),
       sqlText,
+      sourceCodeText: sourceCode.sourceCodeText,
       jobFacets: jobResponse.data.facets ?? {},
       runFacets: latestRun?.facets ?? {}
     },

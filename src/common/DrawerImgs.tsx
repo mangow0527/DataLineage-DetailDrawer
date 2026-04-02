@@ -42,6 +42,20 @@ const CLOSE_DARK = (
   </svg>
 )
 
+const COPY_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" />
+    <path d="M6 16H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
+const COPY_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
+    <path d="M6 16H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.9" />
+  </svg>
+)
+
 const HEADER_CARD_CATEGORY_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="3" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
@@ -100,6 +114,8 @@ export default {
   DELETE_DARK,
   CLOSE_LIGHT,
   CLOSE_DARK,
+  COPY_LIGHT,
+  COPY_DARK,
   HEADER_CARD_CATEGORY_LIGHT,
   HEADER_CARD_CATEGORY_DARK,
   HEADER_CARD_TIME_LIGHT,

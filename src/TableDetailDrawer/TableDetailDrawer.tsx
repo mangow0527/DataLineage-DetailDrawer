@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Button, Drawer, Input, Table, Tag, Tooltip, Typography } from 'antd'
+import { Button, Collapse, Drawer, Input, Table, Tag, Tooltip } from 'antd'
 import '../ToolDetailDrawer/style.less'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
@@ -41,6 +41,13 @@ export default function App() {
     if (!selectedVersion) return null
     return viewModel?.versions.find((v) => v.version === selectedVersion) ?? null
   }, [selectedVersion, viewModel])
+
+  const facetsData = (selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}
+  const hasFacets = (() => {
+    if (Array.isArray(facetsData)) return facetsData.length > 0
+    if (facetsData && typeof facetsData === 'object') return Object.keys(facetsData as object).length > 0
+    return Boolean(facetsData)
+  })()
 
   if (!open) {
     return (
@@ -191,10 +198,19 @@ export default function App() {
                       ]}
                     />
 
-                    <div style={{ marginTop: 16 }}>
-                      <Typography.Text strong>FACETS</Typography.Text>
-                      <JsonTree data={(selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}} />
-                    </div>
+                    {hasFacets ? (
+                      <div style={{ marginTop: 16 }}>
+                        <div className="latest-info-panels">
+                          <Collapse ghost defaultActiveKey={['facets']}>
+                            <Collapse.Panel header="Facets" key="facets">
+                              <div className="latest-info-panels__body latest-info-panels__body--tree">
+                                <JsonTree data={facetsData} theme={currentTheme} />
+                              </div>
+                            </Collapse.Panel>
+                          </Collapse>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </DrawerTabs.Item>
 

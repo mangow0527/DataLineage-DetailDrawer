@@ -33,8 +33,8 @@ export type JobDetailViewModel = {
   header: HeaderViewModel
   summary: SummaryViewModel
   latestRun: {
-    showSqlBlock: boolean
     sqlText: string | null
+    sourceCodeText: string | null
     jobFacets: Record<string, unknown>
     runFacets: Record<string, unknown>
   }
