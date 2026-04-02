@@ -114,8 +114,10 @@ export default function HeaderCard({
           color={tooltipColor}
           overlayInnerStyle={tooltipInnerStyle}
         >
-          <div ref={titleRef} className="job-header-card__title">
-            {title}
+          <div className="job-header-card__title">
+            <div ref={titleRef} className="job-header-card__title-text">
+              {title}
+            </div>
           </div>
         </Tooltip>
         <div className="job-header-card__meta">

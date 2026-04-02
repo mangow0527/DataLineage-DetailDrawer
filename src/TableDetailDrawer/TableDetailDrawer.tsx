@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Button, Collapse, Drawer, Input, Table, Tag, Tooltip } from 'antd'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { Button, Collapse, Drawer, Table } from 'antd'
 import '../ToolDetailDrawer/style.less'
 import JsonTree from '../common/JsonTree'
 import { fmtDate } from '../common/format'
 import drawerImgs from '../common/DrawerImgs'
 import TablePager from '../common/TablePager'
-import DrawerTitle from '../common/DrawerTitle'
+import DrawerTitleBar from '../common/DrawerTitleBar'
 import HeaderCard from '../common/HeaderCard'
 import DrawerTabs from '../common/DrawerTabs'
 import { loadDatasetDetail } from './data/data-extractor'
@@ -16,7 +16,7 @@ function Th({
   icon,
   label
 }: {
-  icon?: React.ReactNode
+  icon?: ReactNode
   label: string
 }) {
   return (
@@ -27,10 +27,16 @@ function Th({
   )
 }
 
+const MONO_STYLE = {
+  fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
+} as const
+
+const renderMonoText = (v: string) => <span style={MONO_STYLE}>{v}</span>
+
 export default function App() {
   const [open, setOpen] = useState(true)
   const [activeTab, setActiveTab] = useState<'latestSchema' | 'versionHistory'>('latestSchema')
-  const [selectedVersion, setSelectedVersion] = useState<string | null>(null)
+  const [selectedVersionId, setSelectedVersionId] = useState<string | null>(null)
   const [currentTheme, setCurrentTheme] = useState<'lightday' | 'evening'>('lightday')
   const [viewModel, setViewModel] = useState<DatasetDetailViewModel | null>(null)
   const [loading, setLoading] = useState(false)
@@ -55,19 +61,21 @@ export default function App() {
 
   const head = viewModel?.versions[0] ?? null
 
-  const ver = useMemo(() => {
-    if (!selectedVersion) return null
-    return viewModel?.versions.find((v) => v.version === selectedVersion) ?? null
-  }, [selectedVersion, viewModel])
+  const isEvening = currentTheme === 'evening'
 
-  const facetsData = (selectedVersion ? ver : head)?.facets ?? viewModel?.facets ?? {}
+  const selectedVersion = useMemo(() => {
+    if (!selectedVersionId) return null
+    return viewModel?.versions.find((v) => v.version === selectedVersionId) ?? null
+  }, [selectedVersionId, viewModel])
+
+  const facetsData = head?.facets ?? viewModel?.facets ?? {}
   const hasFacets = (() => {
     if (Array.isArray(facetsData)) return facetsData.length > 0
     if (facetsData && typeof facetsData === 'object') return Object.keys(facetsData as object).length > 0
     return Boolean(facetsData)
   })()
 
-  const fieldsData = (selectedVersion ? ver : head)?.fields ?? []
+  const fieldsData = head?.fields ?? []
   const {
     pageSize: pageSizeFields,
     current: currentFields,
@@ -92,6 +100,35 @@ export default function App() {
   }, [versions, currentVersions, pageSizeVersions])
 
   const copyIcon = currentTheme === 'evening' ? drawerImgs.COPY_DARK : drawerImgs.COPY_LIGHT
+
+  const selectedVersionFields = selectedVersion?.fields ?? []
+  const {
+    pageSize: pageSizeSelectedFields,
+    current: currentSelectedFields,
+    setCurrent: setCurrentSelectedFields,
+    onPageSizeChange: onSelectedFieldsPageSizeChange
+  } = useTablePagination(selectedVersionFields.length, 10)
+  const pagedSelectedFields = useMemo(() => {
+    const start = (currentSelectedFields - 1) * pageSizeSelectedFields
+    return selectedVersionFields.slice(start, start + pageSizeSelectedFields)
+  }, [selectedVersionFields, currentSelectedFields, pageSizeSelectedFields])
+
+  const fieldColumns = useMemo(() => {
+    const timeIcon = isEvening ? drawerImgs.RUN_HISTORY_TIME_DARK : drawerImgs.RUN_HISTORY_TIME_LIGHT
+    return [
+      {
+        title: <Th icon={timeIcon} label="名称" />,
+        dataIndex: 'name',
+        render: renderMonoText
+      },
+      {
+        title: <Th icon={timeIcon} label="数据类型" />,
+        dataIndex: 'type',
+        render: renderMonoText
+      },
+      { title: <Th label="描述" />, dataIndex: 'description', ellipsis: true }
+    ]
+  }, [isEvening])
 
   if (!open) {
     return (
@@ -155,7 +192,7 @@ export default function App() {
       >
         <div className="drawer-shell" data-theme={currentTheme}>
           <div className="drawer-title-section">
-            <DrawerTitle currentTheme={currentTheme} onClose={() => setOpen(false)} />
+            <DrawerTitleBar currentTheme={currentTheme} onClose={() => setOpen(false)} />
           </div>
 
           <div className="drawer-content">
@@ -174,9 +211,6 @@ export default function App() {
                 onChange={(k) => {
                   const next = k === 'versionHistory' ? 'versionHistory' : 'latestSchema'
                   setActiveTab(next)
-                  if (next === 'versionHistory') {
-                    setSelectedVersion(null)
-                  }
                 }}
               >
                 <DrawerTabs.Item tabKey="latestSchema" label="最新信息">
@@ -192,73 +226,13 @@ export default function App() {
                         Loading...
                       </div>
                     ) : null}
-                    {selectedVersion ? (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                        <Button type="text" size="small" onClick={() => setSelectedVersion(null)}>
-                          ‹
-                        </Button>
-                        <Input
-                          size="small"
-                          value={selectedVersion}
-                          readOnly
-                          style={{ maxWidth: 520 }}
-                          addonAfter={
-                            <Tooltip title="Copy Version ID">
-                              <Button
-                                type="text"
-                                size="small"
-                                onClick={() => selectedVersion && navigator.clipboard?.writeText(selectedVersion)}
-                              >
-                                Copy
-                              </Button>
-                            </Tooltip>
-                          }
-                        />
-                      </div>
-                    ) : null}
-
                     <Table
                       className="dl-themed-table"
                       size="small"
                       rowKey="name"
                       dataSource={pagedFields}
                       pagination={false}
-                      columns={[
-                        {
-                          title: (
-                            <Th
-                              icon={
-                                currentTheme === 'evening' ? drawerImgs.RUN_HISTORY_TIME_DARK : drawerImgs.RUN_HISTORY_TIME_LIGHT
-                              }
-                              label="名称"
-                            />
-                          ),
-                          dataIndex: 'name',
-                          render: (v: string) => (
-                            <span
-                              style={{
-                                fontFamily:
-                                  'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-                              }}
-                            >
-                              {v}
-                            </span>
-                          )
-                        },
-                        {
-                          title: (
-                            <Th
-                              icon={
-                                currentTheme === 'evening' ? drawerImgs.RUN_HISTORY_TIME_DARK : drawerImgs.RUN_HISTORY_TIME_LIGHT
-                              }
-                              label="数据类型"
-                            />
-                          ),
-                          dataIndex: 'type',
-                          render: (v: string) => <Tag>{v}</Tag>
-                        },
-                        { title: <Th label="描述" />, dataIndex: 'description', ellipsis: true }
-                      ]}
+                      columns={fieldColumns}
                     />
                     <div style={{ marginTop: 8 }}>
                       <TablePager
@@ -296,8 +270,7 @@ export default function App() {
                     tableLayout="fixed"
                     onRow={(record: DatasetVersionViewModel) => ({
                       onClick: () => {
-                        setSelectedVersion(record.version)
-                        setActiveTab('latestSchema')
+                        setSelectedVersionId(record.version)
                       }
                     })}
                     columns={[
@@ -402,6 +375,78 @@ export default function App() {
             </div>
           </div>
         </div>
+      </Drawer>
+
+      <Drawer
+        placement="right"
+        width={896}
+        open={Boolean(selectedVersionId && selectedVersion)}
+        closable={false}
+        onClose={() => setSelectedVersionId(null)}
+        mask
+        zIndex={1100}
+        styles={{
+          mask: { backgroundColor: 'transparent' },
+          body: {
+            padding: 0,
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            overflow: 'hidden'
+          }
+        }}
+      >
+        {selectedVersionId && selectedVersion ? (
+          <div className="drawer-shell" data-theme={currentTheme}>
+            <div className="drawer-title-section">
+              <DrawerTitleBar
+                currentTheme={currentTheme}
+                title={selectedVersionId}
+                showMoreAction={false}
+                showCloseAction={false}
+                onBack={() => setSelectedVersionId(null)}
+                onClose={() => setSelectedVersionId(null)}
+              />
+            </div>
+
+            <div className="drawer-content">
+              <div className="drawer-body">
+                <Table
+                  className="dl-themed-table"
+                  size="small"
+                  rowKey="name"
+                  dataSource={pagedSelectedFields}
+                  pagination={false}
+                  columns={fieldColumns}
+                />
+                <div style={{ marginTop: 8 }}>
+                  <TablePager
+                    total={selectedVersionFields.length}
+                    pageSize={pageSizeSelectedFields}
+                    current={currentSelectedFields}
+                    onChange={setCurrentSelectedFields}
+                    onPageSizeChange={onSelectedFieldsPageSizeChange}
+                  />
+                </div>
+
+                {Object.keys(selectedVersion.facets ?? {}).length > 0 ? (
+                  <div style={{ marginTop: 16 }}>
+                    <div className="latest-info-panels">
+                      <Collapse ghost defaultActiveKey={['facets']}>
+                        <Collapse.Panel header="Facets" key="facets">
+                          <div className="latest-info-panels__body latest-info-panels__body--tree">
+                            <JsonTree data={selectedVersion.facets ?? {}} theme={currentTheme} />
+                          </div>
+                        </Collapse.Panel>
+                      </Collapse>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </Drawer>
     </>
   )

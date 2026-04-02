@@ -66,6 +66,24 @@ body {
   font-weight: 500;
   letter-spacing: 0;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-title-bar__title-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-icon-button--back {
+  color: rgba(77, 77, 77, 1);
+}
+
+.drawer-title-bar[data-theme='evening'] .drawer-icon-button--back {
+  color: rgba(128, 128, 128, 1);
 }
 
 .drawer-title-bar[data-theme='lightday'] .drawer-title-bar__title {
@@ -734,6 +752,26 @@ body {
   background: transparent;
 }
 
+.drawer-shell .tool-run-history-table__state-icon.status-start {
+  color: #13c2c2;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-other {
+  color: #bfbfbf;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-start {
+  color: #13c2c2;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-other {
+  color: #bfbfbf;
+  background: transparent;
+}
+
 .drawer-shell .tool-run-history-table__state-icon.status-na {
   color: #bfbfbf;
   background: transparent;
@@ -781,4 +819,8 @@ body {
 .status-completed { background: #52c41a; }
 .status-failed { background: #ff4d4f; }
 .status-aborted { background: #fa8c16; }
+.status-start { background: #13c2c2; }
+.status-other { background: #bfbfbf; }
+.status-start { background: #13c2c2; }
+.status-other { background: #bfbfbf; }
 .status-na { background: #bfbfbf; }

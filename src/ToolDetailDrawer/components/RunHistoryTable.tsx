@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Table } from 'antd'
-import { fmtDate, fmtDuration, fmtRunStateZh, normalizeRunState, statusClass } from '../../common/format'
+import { fmtDate, fmtDuration, fmtRunStateZh, normalizeRunState } from '../../common/format'
 import drawerImgs from '../../common/DrawerImgs'
 import type { RunHistoryItemViewModel } from '../data/view-model'
 import TablePager from '../../common/TablePager'
@@ -38,15 +38,27 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
   const failIcon = drawerImgs.RUN_STATUS_FAIL
   const runningIcon = drawerImgs.RUN_STATUS_RUNNING
   const abortIcon = drawerImgs.RUN_STATUS_ABORT
-  const naIcon = drawerImgs.RUN_STATUS_NA
+  const startIcon = drawerImgs.RUN_STATUS_START
+  const otherIcon = drawerImgs.RUN_STATUS_OTHER
+
+  const getStateClass = (state: string) => {
+    const normalized = normalizeRunState(state)
+    if (normalized === 'START') return 'status-start'
+    if (normalized === 'RUNNING') return 'status-running'
+    if (normalized === 'COMPLETE') return 'status-completed'
+    if (normalized === 'FAIL') return 'status-failed'
+    if (normalized === 'ABORT') return 'status-aborted'
+    return 'status-other'
+  }
 
   const getStateIcon = (state: string) => {
     const normalized = normalizeRunState(state)
+    if (normalized === 'START') return startIcon
     if (normalized === 'COMPLETE') return completeIcon
     if (normalized === 'FAIL') return failIcon
     if (normalized === 'RUNNING') return runningIcon
     if (normalized === 'ABORT') return abortIcon
-    return naIcon
+    return otherIcon
   }
 
   const { pageSize, current, setCurrent, onPageSizeChange } = useTablePagination(items.length, 10)
@@ -102,7 +114,7 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
             dataIndex: 'state',
             render: (v: string) => (
               <span className="tool-run-history-table__state-cell">
-                <span className={`tool-run-history-table__state-icon ${statusClass(v)}`} aria-hidden="true">
+                <span className={`tool-run-history-table__state-icon ${getStateClass(v)}`} aria-hidden="true">
                   {getStateIcon(v)}
                 </span>
                 <span className="tool-run-history-table__state-text">{fmtRunStateZh(v)}</span>

@@ -56,6 +56,25 @@ const COPY_DARK = (
   </svg>
 )
 
+const BACK_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <path d="M14.5 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const BACK_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <path
+      d="M14.5 6l-6 6 6 6"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity="0.9"
+    />
+  </svg>
+)
+
 const HEADER_CARD_CATEGORY_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="3" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
@@ -197,11 +216,19 @@ const RUN_STATUS_ABORT = (
   </svg>
 )
 
-const RUN_STATUS_NA = (
+const RUN_STATUS_START = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-    <path d="M10.5 10a1.8 1.8 0 0 1 3.2 1c0 1.3-1.2 1.7-1.7 2.2-.3.3-.5.6-.5 1.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    <circle cx="12" cy="16.8" r="1" fill="currentColor" />
+    <path d="M10.5 9.5l6 3.5-6 3.5v-7z" fill="currentColor" />
+  </svg>
+)
+
+const RUN_STATUS_OTHER = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <circle cx="9" cy="12" r="1.2" fill="currentColor" />
+    <circle cx="12" cy="12" r="1.2" fill="currentColor" />
+    <circle cx="15" cy="12" r="1.2" fill="currentColor" />
   </svg>
 )
 
@@ -228,5 +255,6 @@ export default {
   RUN_STATUS_FAIL,
   RUN_STATUS_RUNNING,
   RUN_STATUS_ABORT,
-  RUN_STATUS_NA
+  RUN_STATUS_START,
+  RUN_STATUS_OTHER
 }
