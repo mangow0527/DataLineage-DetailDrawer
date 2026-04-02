@@ -35,6 +35,7 @@ export type JobDetailViewModel = {
   latestRun: {
     sqlText: string | null
     sourceCodeText: string | null
+    sourceCodeLanguage: string | null
     jobFacets: Record<string, unknown>
     runFacets: Record<string, unknown>
   }

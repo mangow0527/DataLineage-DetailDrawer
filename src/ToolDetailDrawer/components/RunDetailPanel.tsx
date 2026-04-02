@@ -15,7 +15,7 @@ export default function RunDetailPanel({ runId, selectedRun, jobFacets, theme, o
   return (
     <div>
       <DetailToolbar runId={runId} onBack={onBack} />
-      {selectedRun.sqlText ? <SqlBlock content={selectedRun.sqlText} /> : null}
+      {selectedRun.sqlText ? <SqlBlock content={selectedRun.sqlText} theme={theme} /> : null}
       <JsonTree title="JOB FACETS" data={jobFacets} theme={theme} />
       <JsonTree title="RUN FACETS" data={selectedRun.runFacets ?? {}} theme={theme} />
     </div>

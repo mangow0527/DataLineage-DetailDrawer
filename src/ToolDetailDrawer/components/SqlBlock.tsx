@@ -1,89 +1,42 @@
-import { useMemo, type ReactNode } from 'react'
+import { useId } from 'react'
+import AceEditor from 'react-ace'
+
+import 'ace-builds/src-noconflict/mode-sql'
+import 'ace-builds/src-noconflict/theme-chrome'
+import 'ace-builds/src-noconflict/theme-tomorrow_night'
 
 type SqlBlockProps = {
   content: string
+  theme?: 'lightday' | 'evening'
 }
 
-const SQL_KEYWORDS = [
-  'select',
-  'from',
-  'where',
-  'join',
-  'inner',
-  'left',
-  'right',
-  'full',
-  'outer',
-  'cross',
-  'on',
-  'group',
-  'by',
-  'order',
-  'having',
-  'limit',
-  'offset',
-  'union',
-  'all',
-  'distinct',
-  'insert',
-  'into',
-  'values',
-  'update',
-  'set',
-  'delete',
-  'create',
-  'table',
-  'alter',
-  'drop',
-  'truncate',
-  'as',
-  'and',
-  'or',
-  'not',
-  'in',
-  'exists',
-  'between',
-  'like',
-  'is',
-  'null',
-  'case',
-  'when',
-  'then',
-  'else',
-  'end',
-  'with'
-] as const
+export default function SqlBlock({ content, theme = 'lightday' }: SqlBlockProps) {
+  const id = useId()
+  const aceTheme = theme === 'evening' ? 'tomorrow_night' : 'chrome'
 
-const SQL_KEYWORDS_SET = new Set<string>(SQL_KEYWORDS)
-const SQL_KEYWORDS_RE = new RegExp(`\\b(?:${SQL_KEYWORDS.join('|')})\\b`, 'gi')
-
-export default function SqlBlock({ content }: SqlBlockProps) {
-  const nodes = useMemo(() => {
-    const parts = content.split(SQL_KEYWORDS_RE)
-    const matches = content.match(SQL_KEYWORDS_RE) ?? []
-    const out: ReactNode[] = []
-
-    for (let i = 0; i < parts.length; i += 1) {
-      const text = parts[i]
-      if (text) out.push(text)
-
-      const kw = matches[i]
-      if (kw) {
-        const lower = kw.toLowerCase()
-        if (SQL_KEYWORDS_SET.has(lower)) {
-          out.push(
-            <span key={`kw-${i}-${kw}`} className="latest-info-panels__kw">
-              {kw}
-            </span>
-          )
-        } else {
-          out.push(kw)
-        }
-      }
-    }
-
-    return out
-  }, [content])
-
-  return <pre className="latest-info-panels__code">{nodes}</pre>
+  return (
+    <AceEditor
+      name={`sql-${id}`}
+      className="latest-info-panels__ace"
+      mode="sql"
+      theme={aceTheme}
+      value={content}
+      readOnly
+      width="100%"
+      minLines={6}
+      maxLines={24}
+      fontSize={14}
+      showGutter={false}
+      showPrintMargin={false}
+      highlightActiveLine={false}
+      wrapEnabled
+      setOptions={{
+        useWorker: false,
+        showFoldWidgets: false,
+        tabSize: 2,
+        displayIndentGuides: false
+      }}
+      editorProps={{ $blockScrolling: true }}
+    />
+  )
 }

@@ -1,11 +1,71 @@
+import { useId, useMemo } from 'react'
 import { Collapse } from 'antd'
+import AceEditor from 'react-ace'
 import JsonTree from '../../common/JsonTree'
 import type { JobDetailViewModel } from '../data/view-model'
 import SqlBlock from './SqlBlock'
 
+import 'ace-builds/src-noconflict/mode-java'
+import 'ace-builds/src-noconflict/mode-python'
+import 'ace-builds/src-noconflict/mode-sql'
+import 'ace-builds/src-noconflict/theme-chrome'
+import 'ace-builds/src-noconflict/theme-tomorrow_night'
+
 type LatestRunPanelProps = {
   latestRun: JobDetailViewModel['latestRun']
   theme: 'lightday' | 'evening'
+}
+
+const ACE_MODE_BY_LANGUAGE: Record<string, string> = {
+  java: 'java',
+  py: 'python',
+  python: 'python',
+  sql: 'sql'
+}
+
+function toAceMode(language: string | null | undefined) {
+  const key = (language ?? '').trim().toLowerCase()
+  return ACE_MODE_BY_LANGUAGE[key] ?? 'text'
+}
+
+function SourceCodeBlock({
+  content,
+  language,
+  theme
+}: {
+  content: string
+  language: string | null
+  theme: 'lightday' | 'evening'
+}) {
+  const id = useId()
+  const aceMode = useMemo(() => toAceMode(language), [language])
+  const aceTheme = theme === 'evening' ? 'tomorrow_night' : 'chrome'
+
+  return (
+    <AceEditor
+      name={`source-code-${id}`}
+      className="latest-info-panels__ace"
+      mode={aceMode}
+      theme={aceTheme}
+      value={content}
+      readOnly
+      width="100%"
+      minLines={6}
+      maxLines={28}
+      fontSize={14}
+      showGutter={false}
+      showPrintMargin={false}
+      highlightActiveLine={false}
+      wrapEnabled
+      setOptions={{
+        useWorker: false,
+        showFoldWidgets: false,
+        tabSize: 2,
+        displayIndentGuides: false
+      }}
+      editorProps={{ $blockScrolling: true }}
+    />
+  )
 }
 
 export default function LatestRunPanel({ latestRun, theme }: LatestRunPanelProps) {
@@ -37,7 +97,7 @@ export default function LatestRunPanel({ latestRun, theme }: LatestRunPanelProps
         {hasSql ? (
           <Collapse.Panel header="SQL" key="sql">
             <div className="latest-info-panels__body">
-              <SqlBlock content={latestRun.sqlText ?? ''} />
+              <SqlBlock content={latestRun.sqlText ?? ''} theme={theme} />
             </div>
           </Collapse.Panel>
         ) : null}
@@ -48,7 +108,11 @@ export default function LatestRunPanel({ latestRun, theme }: LatestRunPanelProps
             key="sourceCode"
           >
             <div className="latest-info-panels__body">
-              <pre className="latest-info-panels__code">{latestRun.sourceCodeText}</pre>
+              <SourceCodeBlock
+                content={latestRun.sourceCodeText ?? ''}
+                language={latestRun.sourceCodeLanguage}
+                theme={theme}
+              />
             </div>
           </Collapse.Panel>
         ) : null}

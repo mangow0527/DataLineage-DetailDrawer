@@ -8,8 +8,10 @@ function getSqlText(response: JobDetailApiResponse): string | null {
 
 function getSourceCode(response: JobDetailApiResponse) {
   const raw = response.data.facets.sourceCode?.sourceCode?.trim()
+  const langRaw = response.data.facets.sourceCode?.language?.trim()
   return {
-    sourceCodeText: raw ? raw : null
+    sourceCodeText: raw ? raw : null,
+    sourceCodeLanguage: langRaw ? langRaw : null
   }
 }
 
@@ -51,6 +53,7 @@ export function mapJobDetailToViewModel(jobResponse: JobDetailApiResponse, runsR
     latestRun: {
       sqlText,
       sourceCodeText: sourceCode.sourceCodeText,
+      sourceCodeLanguage: sourceCode.sourceCodeLanguage,
       jobFacets: jobResponse.data.facets ?? {},
       runFacets: latestRun?.facets ?? {}
     },
