@@ -3,6 +3,9 @@ import { Table } from 'antd'
 import { fmtDate, fmtDuration, fmtRunStateZh, normalizeRunState, statusClass } from '../../common/format'
 import drawerImgs from '../../common/DrawerImgs'
 import type { RunHistoryItemViewModel } from '../data/view-model'
+import TablePager from '../../common/TablePager'
+import { useMemo } from 'react'
+import { useTablePagination } from '../../common/useTablePagination'
 
 type RunHistoryTableProps = {
   items: RunHistoryItemViewModel[]
@@ -18,9 +21,9 @@ function Th({
   label: string
 }) {
   return (
-    <span className="tool-run-history-table__th">
+    <span className="dl-table__th">
       <span>{label}</span>
-      {icon ? <span className="tool-run-history-table__th-icon">{icon}</span> : null}
+      {icon ? <span className="dl-table__th-icon">{icon}</span> : null}
     </span>
   )
 }
@@ -46,14 +49,22 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
     return naIcon
   }
 
+  const { pageSize, current, setCurrent, onPageSizeChange } = useTablePagination(items.length, 10)
+
+  const pageItems = useMemo(() => {
+    const start = (current - 1) * pageSize
+    const end = start + pageSize
+    return items.slice(start, end)
+  }, [items, current, pageSize])
+
   return (
     <div>
       <Table
         className="tool-run-history-table"
         size="small"
         rowKey="id"
-        dataSource={items}
-        pagination={{ pageSize: 8 }}
+        dataSource={pageItems}
+        pagination={false}
         onRow={(record: RunHistoryItemViewModel) => ({
           onClick: () => onSelect(record.id)
         })}
@@ -62,9 +73,9 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
             title: <Th icon={idIcon} label="ID" />,
             dataIndex: 'id',
             render: (v: string) => (
-              <span className="tool-run-history-table__id-cell">
+              <span className="dl-table__id-cell">
                 <span
-                  className="tool-run-history-table__id"
+                  className="dl-table__id"
                   style={{
                     fontFamily:
                       'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
@@ -75,7 +86,7 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
                 <button
                   type="button"
                   aria-label="copy"
-                  className="tool-run-history-table__copy"
+                  className="dl-table__copy"
                   onClick={(e) => {
                     e.stopPropagation()
                     v && navigator.clipboard?.writeText(v)
@@ -104,6 +115,7 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
           { title: <Th label="持续时间" />, dataIndex: 'durationMs', render: fmtDuration }
         ]}
       />
+      <TablePager total={items.length} pageSize={pageSize} current={current} onChange={setCurrent} onPageSizeChange={onPageSizeChange} />
     </div>
   )
 }
