@@ -6,28 +6,28 @@
 
 | 组件 | 使用位置 |
 | --- | --- |
-| Drawer | [ToolDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2), [TableDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
-| Collapse | [ToolDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2), [LatestRunPanel.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/components/LatestRunPanel.tsx#L1), [TableDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
-| Table | [RunHistoryTable.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/components/RunHistoryTable.tsx#L2), [TableDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
-| Tabs | [DrawerTabs.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/DrawerTabs.tsx#L1) |
-| Tooltip | [HeaderCard.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/HeaderCard.tsx#L2) |
-| Tree | [JsonTree.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/JsonTree.tsx#L2) |
-| Pagination | [TablePager.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/TablePager.tsx#L1) |
-| Input | [TablePager.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/TablePager.tsx#L1) |
-| Button | [TableDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
+| Drawer | [src/ToolDetailDrawer/ToolDetailDrawer.tsx](src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2), [src/TableDetailDrawer/TableDetailDrawer.tsx](src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
+| Collapse | [src/ToolDetailDrawer/ToolDetailDrawer.tsx](src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2), [src/ToolDetailDrawer/components/LatestRunPanel.tsx](src/ToolDetailDrawer/components/LatestRunPanel.tsx#L1), [src/TableDetailDrawer/TableDetailDrawer.tsx](src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
+| Table | [src/ToolDetailDrawer/components/RunHistoryTable.tsx](src/ToolDetailDrawer/components/RunHistoryTable.tsx#L2), [src/TableDetailDrawer/TableDetailDrawer.tsx](src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
+| Tabs | [src/common/DrawerTabs.tsx](src/common/DrawerTabs.tsx#L1) |
+| Tooltip | [src/common/HeaderCard.tsx](src/common/HeaderCard.tsx#L2) |
+| Tree | [src/common/JsonTree.tsx](src/common/JsonTree.tsx#L2) |
+| Pagination | [src/common/TablePager.tsx](src/common/TablePager.tsx#L1) |
+| Input | [src/common/TablePager.tsx](src/common/TablePager.tsx#L1) |
+| Button | [src/TableDetailDrawer/TableDetailDrawer.tsx](src/TableDetailDrawer/TableDetailDrawer.tsx#L2) |
 
 ## 组件清单（按文件）
 
 | 文件 | antd 组件 |
 | --- | --- |
-| [ToolDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2) | Collapse、Drawer |
-| [LatestRunPanel.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/components/LatestRunPanel.tsx#L1) | Collapse |
-| [RunHistoryTable.tsx](file:///d:/code/DataLineage-DetailDrawer/src/ToolDetailDrawer/components/RunHistoryTable.tsx#L2) | Table |
-| [TableDetailDrawer.tsx](file:///d:/code/DataLineage-DetailDrawer/src/TableDetailDrawer/TableDetailDrawer.tsx#L2) | Button、Collapse、Drawer、Table |
-| [HeaderCard.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/HeaderCard.tsx#L2) | Tooltip |
-| [JsonTree.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/JsonTree.tsx#L2) | Tree |
-| [DrawerTabs.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/DrawerTabs.tsx#L1) | Tabs |
-| [TablePager.tsx](file:///d:/code/DataLineage-DetailDrawer/src/common/TablePager.tsx#L1) | Input、Pagination |
+| [src/ToolDetailDrawer/ToolDetailDrawer.tsx](src/ToolDetailDrawer/ToolDetailDrawer.tsx#L2) | Collapse、Drawer |
+| [src/ToolDetailDrawer/components/LatestRunPanel.tsx](src/ToolDetailDrawer/components/LatestRunPanel.tsx#L1) | Collapse |
+| [src/ToolDetailDrawer/components/RunHistoryTable.tsx](src/ToolDetailDrawer/components/RunHistoryTable.tsx#L2) | Table |
+| [src/TableDetailDrawer/TableDetailDrawer.tsx](src/TableDetailDrawer/TableDetailDrawer.tsx#L2) | Button、Collapse、Drawer、Table |
+| [src/common/HeaderCard.tsx](src/common/HeaderCard.tsx#L2) | Tooltip |
+| [src/common/JsonTree.tsx](src/common/JsonTree.tsx#L2) | Tree |
+| [src/common/DrawerTabs.tsx](src/common/DrawerTabs.tsx#L1) | Tabs |
+| [src/common/TablePager.tsx](src/common/TablePager.tsx#L1) | Input、Pagination |
 
 ## 重构计划建议（拆解方向）
 
@@ -48,4 +48,3 @@
 
 - common 下的“组合组件”（如 HeaderCard / DrawerTitleBar / JsonTree / TablePager）保持只依赖通用数据结构，避免反向依赖业务目录
 - 业务目录只通过 common 的 wrapper 使用 antd，减少直接 import antd 的散点
-
