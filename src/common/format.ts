@@ -41,12 +41,39 @@ export function fmtDurationHmsMs(ms: number | null | undefined) {
   return `${h}h${m}m${s}s${msPart}ms`
 }
 
-export function statusClass(state?: string) {
-  if (!state) return 'status-na'
-  const s = state.toLowerCase()
-  if (s === 'completed' || s === 'complete') return 'status-completed'
-  if (s === 'running') return 'status-running'
-  if (s === 'failed' || s === 'fail') return 'status-failed'
-  if (s === 'aborted' || s === 'abort') return 'status-aborted'
+export const RUN_STATE_KEYS = ['START', 'RUNNING', 'COMPLETE', 'ABORT', 'FAIL', 'OTHER'] as const
+export type RunStateKey = (typeof RUN_STATE_KEYS)[number]
+
+export function normalizeRunState(state?: string | null): RunStateKey | null {
+  if (!state) return null
+  if ((RUN_STATE_KEYS as readonly string[]).includes(state)) return state as RunStateKey
+
+  const s = state.trim().toLowerCase()
+  if (s === 'start') return 'START'
+  if (s === 'running') return 'RUNNING'
+  if (s === 'complete' || s === 'completed') return 'COMPLETE'
+  if (s === 'abort' || s === 'aborted') return 'ABORT'
+  if (s === 'fail' || s === 'failed') return 'FAIL'
+  if (s === 'other') return 'OTHER'
+  return null
+}
+
+export function statusClass(state?: string | null) {
+  const normalized = normalizeRunState(state)
+  if (normalized === 'RUNNING') return 'status-running'
+  if (normalized === 'COMPLETE') return 'status-completed'
+  if (normalized === 'FAIL') return 'status-failed'
+  if (normalized === 'ABORT') return 'status-aborted'
   return 'status-na'
+}
+
+export function fmtRunStateZh(state?: string | null) {
+  const normalized = normalizeRunState(state)
+  if (!normalized) return state ? state : 'N/A'
+  if (normalized === 'START') return '开始'
+  if (normalized === 'RUNNING') return '运行中'
+  if (normalized === 'COMPLETE') return '已完成'
+  if (normalized === 'ABORT') return '已中止'
+  if (normalized === 'FAIL') return '失败'
+  return '其他'
 }

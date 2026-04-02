@@ -1,4 +1,4 @@
-import { fmtDateTime, fmtDurationHmsMs } from '../../common/format'
+import { fmtDateTime, fmtDurationHmsMs, fmtRunStateZh } from '../../common/format'
 import type { SummaryViewModel } from '../data/view-model'
 
 type ToolHeaderBarProps = {
@@ -8,17 +8,6 @@ type ToolHeaderBarProps = {
 function fmtJobType(type: SummaryViewModel['type']) {
   if (type === 'BATCH') return 'Batch'
   if (type === 'STREAM') return 'Stream'
-  return 'N/A'
-}
-
-function fmtRunStateZh(state: SummaryViewModel['runningStatus']) {
-  if (!state) return 'N/A'
-  if (state === 'START') return '开始'
-  if (state === 'RUNNING') return '运行中'
-  if (state === 'COMPLETE') return '已完成'
-  if (state === 'ABORT') return '已中止'
-  if (state === 'FAIL') return '失败'
-  if (state === 'OTHER') return '其他'
   return 'N/A'
 }
 

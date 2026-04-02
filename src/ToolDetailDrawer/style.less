@@ -440,11 +440,20 @@ body {
 }
 
 .drawer-shell[data-theme='evening'] .dl-json-tree__label {
-  color: rgba(25, 25, 25, 1);
+  color: rgba(230, 230, 230, 1);
 }
 
 .drawer-shell[data-theme='evening'] .dl-json-tree__items {
-  color: rgba(25, 25, 25, 1);
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-tree .ant-tree-switcher,
+.drawer-shell[data-theme='evening'] .ant-tree .ant-tree-switcher-icon {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell[data-theme='evening'] .ant-tree .ant-tree-switcher svg {
+  fill: currentColor;
 }
 
 .drawer-shell :focus-visible {
@@ -532,6 +541,137 @@ body {
   border-bottom: 1px solid var(--dl-border);
 }
 
+.drawer-shell .tool-run-history-table .ant-table-thead > tr > th {
+  background: rgba(247, 247, 247, 1);
+  color: rgba(77, 77, 77, 1);
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.drawer-shell[data-theme='evening'] .tool-run-history-table .ant-table-thead > tr > th {
+  background: rgba(57, 57, 57, 1);
+  color: rgba(179, 179, 179, 1);
+}
+
+.drawer-shell .tool-run-history-table__th {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.drawer-shell .tool-run-history-table__th-icon {
+  margin-left: auto;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.drawer-shell .tool-run-history-table__th-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.drawer-shell .tool-run-history-table__id-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-shell .tool-run-history-table__id {
+  color: rgba(38, 115, 229, 1);
+}
+
+.drawer-shell .tool-run-history-table__copy {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--dl-text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.drawer-shell .tool-run-history-table__copy svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.drawer-shell .tool-run-history-table .ant-table-tbody > tr:hover .tool-run-history-table__copy {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-shell .tool-run-history-table__copy:hover {
+  color: var(--dl-focus);
+  background: rgba(38, 115, 229, 0.06);
+}
+
+.drawer-shell[data-theme='evening'] .tool-run-history-table__copy:hover {
+  background: rgba(51, 136, 255, 0.10);
+}
+
+.drawer-shell .tool-run-history-table__state-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-shell .tool-run-history-table__state-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  flex: 0 0 auto;
+  color: rgba(191, 191, 191, 1);
+}
+
+.drawer-shell .tool-run-history-table__state-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-running {
+  color: #1677ff;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-completed {
+  color: #52c41a;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-failed {
+  color: #ff4d4f;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-aborted {
+  color: #fa8c16;
+  background: transparent;
+}
+
+.drawer-shell .tool-run-history-table__state-icon.status-na {
+  color: #bfbfbf;
+  background: transparent;
+}
+
 .drawer-shell .ant-table-wrapper .ant-table-tbody > tr > td {
   border-bottom: 1px solid var(--dl-border-soft);
   color: var(--dl-text-primary);
@@ -568,14 +708,6 @@ body {
 .drawer-shell .ant-tag {
   border-radius: 999px;
   font-family: var(--dl-font-sans);
-}
-
-.status-pill {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  color: #fff;
 }
 
 .status-running { background: #1677ff; }

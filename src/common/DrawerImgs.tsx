@@ -109,6 +109,102 @@ const HEADER_CARD_COLUMNS_DARK = (
   </svg>
 )
 
+const RUN_HISTORY_ID_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="5" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="2" />
+    <path d="M8 10h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path d="M8 14h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+  </svg>
+)
+
+const RUN_HISTORY_ID_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="5" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
+    <path d="M8 10h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.9" />
+    <path d="M8 14h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
+  </svg>
+)
+
+const RUN_HISTORY_STATE_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="5" y="7" width="14" height="10" rx="5" stroke="currentColor" strokeWidth="2" />
+    <circle cx="9" cy="12" r="1.6" fill="currentColor" />
+    <path d="M12 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
+  </svg>
+)
+
+const RUN_HISTORY_STATE_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <rect x="5" y="7" width="14" height="10" rx="5" stroke="currentColor" strokeWidth="2" opacity="0.9" />
+    <circle cx="9" cy="12" r="1.6" fill="currentColor" opacity="0.9" />
+    <path d="M12 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.75" />
+  </svg>
+)
+
+const RUN_HISTORY_TIME_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="2" />
+    <path d="M12 8v4l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const RUN_HISTORY_TIME_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="2" opacity="0.9" />
+    <path
+      d="M12 8v4l3 2"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity="0.9"
+    />
+  </svg>
+)
+
+const RUN_STATUS_COMPLETE = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path d="M8 12.5l2.6 2.6L16.6 9.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const RUN_STATUS_FAIL = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path d="M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path d="M15 9l-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
+const RUN_STATUS_RUNNING = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <path
+      d="M12 3a9 9 0 1 0 9 9"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M21 12h-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+)
+
+const RUN_STATUS_ABORT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <rect x="9" y="9" width="6" height="6" rx="1.2" fill="currentColor" />
+  </svg>
+)
+
+const RUN_STATUS_NA = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path d="M10.5 10a1.8 1.8 0 0 1 3.2 1c0 1.3-1.2 1.7-1.7 2.2-.3.3-.5.6-.5 1.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="12" cy="16.8" r="1" fill="currentColor" />
+  </svg>
+)
+
 export default {
   DELETE_LIGHT,
   DELETE_DARK,
@@ -121,5 +217,16 @@ export default {
   HEADER_CARD_TIME_LIGHT,
   HEADER_CARD_TIME_DARK,
   HEADER_CARD_COLUMNS_LIGHT,
-  HEADER_CARD_COLUMNS_DARK
+  HEADER_CARD_COLUMNS_DARK,
+  RUN_HISTORY_ID_LIGHT,
+  RUN_HISTORY_ID_DARK,
+  RUN_HISTORY_STATE_LIGHT,
+  RUN_HISTORY_STATE_DARK,
+  RUN_HISTORY_TIME_LIGHT,
+  RUN_HISTORY_TIME_DARK,
+  RUN_STATUS_COMPLETE,
+  RUN_STATUS_FAIL,
+  RUN_STATUS_RUNNING,
+  RUN_STATUS_ABORT,
+  RUN_STATUS_NA
 }

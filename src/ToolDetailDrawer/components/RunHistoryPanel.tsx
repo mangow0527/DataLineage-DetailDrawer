@@ -33,5 +33,5 @@ export default function RunHistoryPanel({
     )
   }
 
-  return <RunHistoryTable items={items} onSelect={onSelectRun} />
+  return <RunHistoryTable items={items} theme={theme} onSelect={onSelectRun} />
 }
