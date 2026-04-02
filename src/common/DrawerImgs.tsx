@@ -1,4 +1,5 @@
-const DELETE_LIGHT = (
+// Drawer 标题栏：右侧“更多操作 / Actions”按钮（打开操作菜单）。当前被 DrawerTitleBar / DrawerTitle 使用。
+const MORE_ACTIONS_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
       d="M2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4C3.10457 4 4 3.10457 4 2C4 0.895431 3.10457 0 2 0ZM0 9C0 7.89543 0.895431 7 2 7C3.10457 7 4 7.89543 4 9C4 10.1046 3.10457 11 2 11C0.895431 11 0 10.1046 0 9ZM0 16C0 14.8954 0.895431 14 2 14C3.10457 14 4 14.8954 4 16C4 17.1046 3.10457 18 2 18C0.895431 18 0 17.1046 0 16Z"
@@ -9,7 +10,8 @@ const DELETE_LIGHT = (
   </svg>
 )
 
-const DELETE_DARK = (
+// Drawer 标题栏：右侧“更多操作 / Actions”按钮（深色主题）。
+const MORE_ACTIONS_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
       d="M2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4C3.10457 4 4 3.10457 4 2C4 0.895431 3.10457 0 2 0ZM0 9C0 7.89543 0.895431 7 2 7C3.10457 7 4 7.89543 4 9C4 10.1046 3.10457 11 2 11C0.895431 11 0 10.1046 0 9ZM0 16C0 14.8954 0.895431 14 2 14C3.10457 14 4 14.8954 4 16C4 17.1046 3.10457 18 2 18C0.895431 18 0 17.1046 0 16Z"
@@ -20,6 +22,7 @@ const DELETE_DARK = (
   </svg>
 )
 
+// Drawer 标题栏：右上角关闭抽屉按钮（浅色主题）。
 const CLOSE_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
@@ -31,6 +34,7 @@ const CLOSE_LIGHT = (
   </svg>
 )
 
+// Drawer 标题栏：右上角关闭抽屉按钮（深色主题）。
 const CLOSE_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
@@ -42,6 +46,7 @@ const CLOSE_DARK = (
   </svg>
 )
 
+// 通用：复制到剪贴板按钮（浅色主题）。用于 JsonTree、RunHistoryTable、TableDetailDrawer 的复制动作。
 const COPY_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" />
@@ -49,6 +54,7 @@ const COPY_LIGHT = (
   </svg>
 )
 
+// 通用：复制到剪贴板按钮（深色主题）。
 const COPY_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="8" y="8" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -56,12 +62,14 @@ const COPY_DARK = (
   </svg>
 )
 
+// 抽屉标题栏：返回上一级按钮（浅色主题）。当前未接入（DrawerTitleBar 里仍使用内联 BACK_ICON）。
 const BACK_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path d="M14.5 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
+// 抽屉标题栏：返回上一级按钮（深色主题）。当前未接入（DrawerTitleBar 里仍使用内联 BACK_ICON）。
 const BACK_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
@@ -75,6 +83,7 @@ const BACK_DARK = (
   </svg>
 )
 
+// HeaderCard 默认图标：资产类型（Tool/Table）的类别图标（浅色主题）。用于 HeaderCard 在未传入 categoryIcon 时展示。
 const HEADER_CARD_CATEGORY_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="3" width="7" height="7" rx="1.2" stroke="currentColor" strokeWidth="2" />
@@ -84,6 +93,7 @@ const HEADER_CARD_CATEGORY_LIGHT = (
   </svg>
 )
 
+// HeaderCard 默认图标：资产类型（Tool/Table）的类别图标（深色主题）。
 const HEADER_CARD_CATEGORY_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="3" width="7" height="7" rx="1.2" fill="currentColor" opacity="0.9" />
@@ -93,6 +103,7 @@ const HEADER_CARD_CATEGORY_DARK = (
   </svg>
 )
 
+// HeaderCard 默认图标：时间类属性（createdAt/updatedAt）的时间图标（浅色主题）。用于 HeaderCard 在未传入 createdAtIcon/updatedAtIcon 时展示。
 const HEADER_CARD_TIME_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2" />
@@ -101,6 +112,7 @@ const HEADER_CARD_TIME_LIGHT = (
   </svg>
 )
 
+// HeaderCard 默认图标：时间类属性（createdAt/updatedAt）的时间图标（深色主题）。
 const HEADER_CARD_TIME_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -112,6 +124,7 @@ const HEADER_CARD_TIME_DARK = (
   </svg>
 )
 
+// HeaderCard 默认图标：字段数 / 列数（columns）图标（浅色主题）。用于 HeaderCard 在未传入 columnCountIcon 时展示。
 const HEADER_CARD_COLUMNS_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="2" />
@@ -120,6 +133,7 @@ const HEADER_CARD_COLUMNS_LIGHT = (
   </svg>
 )
 
+// HeaderCard 默认图标：字段数 / 列数（columns）图标（深色主题）。
 const HEADER_CARD_COLUMNS_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -128,6 +142,7 @@ const HEADER_CARD_COLUMNS_DARK = (
   </svg>
 )
 
+// Tool/Table 的运行历史列表：表头 “ID” 列的小图标（浅色主题）。用于 RunHistoryTable / TableDetailDrawer。
 const RUN_HISTORY_ID_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="5" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="2" />
@@ -136,6 +151,7 @@ const RUN_HISTORY_ID_LIGHT = (
   </svg>
 )
 
+// Tool/Table 的运行历史列表：表头 “ID” 列的小图标（深色主题）。
 const RUN_HISTORY_ID_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="5" y="6" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -144,6 +160,7 @@ const RUN_HISTORY_ID_DARK = (
   </svg>
 )
 
+// Tool 的运行历史列表：表头 “状态” 列的小图标（浅色主题）。用于 ToolDetailDrawer/RunHistoryTable。
 const RUN_HISTORY_STATE_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="5" y="7" width="14" height="10" rx="5" stroke="currentColor" strokeWidth="2" />
@@ -152,6 +169,7 @@ const RUN_HISTORY_STATE_LIGHT = (
   </svg>
 )
 
+// Tool 的运行历史列表：表头 “状态” 列的小图标（深色主题）。
 const RUN_HISTORY_STATE_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <rect x="5" y="7" width="14" height="10" rx="5" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -160,6 +178,7 @@ const RUN_HISTORY_STATE_DARK = (
   </svg>
 )
 
+// Tool/Table 的运行历史列表：表头 “时间” 列的小图标（浅色主题）。用于 RunHistoryTable / TableDetailDrawer（创建/开始/结束时间的列头）。
 const RUN_HISTORY_TIME_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="2" />
@@ -167,6 +186,7 @@ const RUN_HISTORY_TIME_LIGHT = (
   </svg>
 )
 
+// Tool/Table 的运行历史列表：表头 “时间” 列的小图标（深色主题）。
 const RUN_HISTORY_TIME_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="2" opacity="0.9" />
@@ -181,6 +201,7 @@ const RUN_HISTORY_TIME_DARK = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（COMPLETE/已完成）。用于 RunHistoryTable 状态列，配合 .status-completed 着色。
 const RUN_STATUS_COMPLETE = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
@@ -188,6 +209,7 @@ const RUN_STATUS_COMPLETE = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（FAIL/失败）。用于 RunHistoryTable 状态列，配合 .status-failed 着色。
 const RUN_STATUS_FAIL = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
@@ -196,6 +218,7 @@ const RUN_STATUS_FAIL = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（RUNNING/运行中）。用于 RunHistoryTable 状态列，配合 .status-running 着色。
 const RUN_STATUS_RUNNING = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
@@ -209,6 +232,7 @@ const RUN_STATUS_RUNNING = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（ABORT/已中止）。用于 RunHistoryTable 状态列，配合 .status-aborted 着色。
 const RUN_STATUS_ABORT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
@@ -216,6 +240,7 @@ const RUN_STATUS_ABORT = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（START/开始）。用于 RunHistoryTable 状态列，配合 .status-start 着色。
 const RUN_STATUS_START = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
@@ -223,6 +248,7 @@ const RUN_STATUS_START = (
   </svg>
 )
 
+// Tool 运行历史：状态图标（OTHER/其他）。用于 RunHistoryTable 状态列，作为未知/其它状态的兜底，配合 .status-other 着色。
 const RUN_STATUS_OTHER = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
@@ -233,12 +259,14 @@ const RUN_STATUS_OTHER = (
 )
 
 export default {
-  DELETE_LIGHT,
-  DELETE_DARK,
+  MORE_ACTIONS_LIGHT,
+  MORE_ACTIONS_DARK,
   CLOSE_LIGHT,
   CLOSE_DARK,
   COPY_LIGHT,
   COPY_DARK,
+  BACK_LIGHT,
+  BACK_DARK,
   HEADER_CARD_CATEGORY_LIGHT,
   HEADER_CARD_CATEGORY_DARK,
   HEADER_CARD_TIME_LIGHT,

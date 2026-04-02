@@ -26,7 +26,7 @@ export default function DrawerTitleBar({
 }: DrawerTitleBarProps) {
   const isLight = currentTheme === 'lightday'
   const closeIcon = isLight ? drawerImgs.CLOSE_LIGHT : drawerImgs.CLOSE_DARK
-  const deleteIcon = isLight ? drawerImgs.DELETE_LIGHT : drawerImgs.DELETE_DARK
+  const moreActionsIcon = isLight ? drawerImgs.MORE_ACTIONS_LIGHT : drawerImgs.MORE_ACTIONS_DARK
   const [menuOpen, setMenuOpen] = useState(false)
   const menuAnchorRef = useRef<HTMLDivElement | null>(null)
 
@@ -65,10 +65,10 @@ export default function DrawerTitleBar({
             <button
               type="button"
               className="drawer-icon-button drawer-icon-button--danger"
-              aria-label="Delete"
+              aria-label="Actions"
               onClick={() => setMenuOpen((v) => !v)}
             >
-              {deleteIcon}
+              {moreActionsIcon}
             </button>
             <div className={`drawer-menu${menuOpen ? ' drawer-menu--open' : ''}`}>
               <div

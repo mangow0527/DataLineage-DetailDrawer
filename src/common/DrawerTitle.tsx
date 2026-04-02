@@ -9,7 +9,7 @@ export default function DrawerTitle({ currentTheme, onClose }: DrawerTitleProps)
   const isLight = currentTheme === 'lightday'
   const theme = isLight ? 'lightday' : 'evening'
   const closeIcon = isLight ? drawerImgs.CLOSE_LIGHT : drawerImgs.CLOSE_DARK
-  const deleteIcon = isLight ? drawerImgs.DELETE_LIGHT : drawerImgs.DELETE_DARK
+  const moreActionsIcon = isLight ? drawerImgs.MORE_ACTIONS_LIGHT : drawerImgs.MORE_ACTIONS_DARK
 
   return (
     <div className="drawer-title-bar" data-theme={theme}>
@@ -19,7 +19,7 @@ export default function DrawerTitle({ currentTheme, onClose }: DrawerTitleProps)
           <button
             type="button"
             className="drawer-icon-button drawer-icon-button--danger"
-            aria-label="Delete"
+            aria-label="Actions"
             onClick={() => {
               const menu = document.getElementById('drawer-delete-menu')
               if (!menu) return
@@ -31,7 +31,7 @@ export default function DrawerTitle({ currentTheme, onClose }: DrawerTitleProps)
               }
             }}
           >
-            {deleteIcon}
+            {moreActionsIcon}
           </button>
           <div id="drawer-delete-menu" className="drawer-menu">
             <div
