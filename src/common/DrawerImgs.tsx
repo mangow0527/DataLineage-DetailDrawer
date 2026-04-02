@@ -62,14 +62,14 @@ const COPY_DARK = (
   </svg>
 )
 
-// 抽屉标题栏：返回上一级按钮（浅色主题）。当前未接入（DrawerTitleBar 里仍使用内联 BACK_ICON）。
+// Drawer 标题栏：返回上一级按钮（浅色主题）。用于 DrawerTitleBar 的返回按钮。
 const BACK_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path d="M14.5 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
-// 抽屉标题栏：返回上一级按钮（深色主题）。当前未接入（DrawerTitleBar 里仍使用内联 BACK_ICON）。
+// Drawer 标题栏：返回上一级按钮（深色主题）。用于 DrawerTitleBar 的返回按钮。
 const BACK_DARK = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path

@@ -1,12 +1,6 @@
 import drawerImgs from './DrawerImgs'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
-const BACK_ICON = (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
-    <path d="M14.5 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-)
-
 type DrawerTitleBarProps = {
   currentTheme: 'lightday' | 'evening'
   title?: ReactNode
@@ -25,6 +19,7 @@ export default function DrawerTitleBar({
   onClose
 }: DrawerTitleBarProps) {
   const isLight = currentTheme === 'lightday'
+  const backIcon = isLight ? drawerImgs.BACK_LIGHT : drawerImgs.BACK_DARK
   const closeIcon = isLight ? drawerImgs.CLOSE_LIGHT : drawerImgs.CLOSE_DARK
   const moreActionsIcon = isLight ? drawerImgs.MORE_ACTIONS_LIGHT : drawerImgs.MORE_ACTIONS_DARK
   const [menuOpen, setMenuOpen] = useState(false)
@@ -54,7 +49,7 @@ export default function DrawerTitleBar({
       <div className="drawer-title-bar__title">
         {onBack ? (
           <button type="button" className="drawer-icon-button drawer-icon-button--back" aria-label="Back" onClick={onBack}>
-            {BACK_ICON}
+            {backIcon}
           </button>
         ) : null}
         <span className="drawer-title-bar__title-text">{title ?? '详情'}</span>
