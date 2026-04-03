@@ -94,8 +94,22 @@ export default function HeaderCard({
   const tooltipInnerStyle = theme === 'lightday' ? { color: '#000000' } : { color: '#ffffff' }
   const categoryValue = variant === 'tool' ? 'Tool' : 'Table'
   const isLight = theme === 'lightday'
-  const defaultCategoryIcon = isLight ? drawerImgs.HEADER_CARD_CATEGORY_LIGHT : drawerImgs.HEADER_CARD_CATEGORY_DARK
-  const defaultTimeIcon = isLight ? drawerImgs.HEADER_CARD_TIME_LIGHT : drawerImgs.HEADER_CARD_TIME_DARK
+  const defaultCategoryIcon =
+    variant === 'tool'
+      ? isLight
+        ? drawerImgs.HEADER_CARD_TOOL_CATEGORY_LIGHT
+        : drawerImgs.HEADER_CARD_TOOL_CATEGORY_DARK
+      : isLight
+        ? drawerImgs.HEADER_CARD_CATEGORY_LIGHT
+        : drawerImgs.HEADER_CARD_CATEGORY_DARK
+  const defaultTimeIcon =
+    variant === 'tool'
+      ? isLight
+        ? drawerImgs.HEADER_CARD_TOOL_TIME_LIGHT
+        : drawerImgs.HEADER_CARD_TOOL_TIME_DARK
+      : isLight
+        ? drawerImgs.HEADER_CARD_TIME_LIGHT
+        : drawerImgs.HEADER_CARD_TIME_DARK
   const defaultColumnsIcon = isLight ? drawerImgs.HEADER_CARD_COLUMNS_LIGHT : drawerImgs.HEADER_CARD_COLUMNS_DARK
 
   return (

@@ -103,6 +103,29 @@ const HEADER_CARD_CATEGORY_DARK = (
   </svg>
 )
 
+const HEADER_CARD_TOOL_CATEGORY_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <path
+      d="M21 7.25a5.75 5.75 0 0 1-8.12 5.26l-5.14 5.14a2 2 0 0 1-2.83 0l-.82-.82a2 2 0 0 1 0-2.83l5.14-5.14A5.75 5.75 0 0 1 16.5 3l-2.8 2.8 3.5 3.5L21 7.25z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
+
+const HEADER_CARD_TOOL_CATEGORY_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <path
+      d="M21 7.25a5.75 5.75 0 0 1-8.12 5.26l-5.14 5.14a2 2 0 0 1-2.83 0l-.82-.82a2 2 0 0 1 0-2.83l5.14-5.14A5.75 5.75 0 0 1 16.5 3l-2.8 2.8 3.5 3.5L21 7.25z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+      opacity="0.9"
+    />
+  </svg>
+)
+
 // HeaderCard 默认图标：时间类属性（createdAt/updatedAt）的时间图标（浅色主题）。用于 HeaderCard 在未传入 createdAtIcon/updatedAtIcon 时展示。
 const HEADER_CARD_TIME_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
@@ -121,6 +144,27 @@ const HEADER_CARD_TIME_DARK = (
     <circle cx="9" cy="14" r="1" fill="currentColor" opacity="0.9" />
     <circle cx="13" cy="14" r="1" fill="currentColor" opacity="0.9" />
     <circle cx="17" cy="14" r="1" fill="currentColor" opacity="0.9" />
+  </svg>
+)
+
+const HEADER_CARD_TOOL_TIME_LIGHT = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
+    <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+const HEADER_CARD_TOOL_TIME_DARK = (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" opacity="0.9" />
+    <path
+      d="M12 7v5l3 2"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity="0.9"
+    />
   </svg>
 )
 
@@ -269,8 +313,12 @@ export default {
   BACK_DARK,
   HEADER_CARD_CATEGORY_LIGHT,
   HEADER_CARD_CATEGORY_DARK,
+  HEADER_CARD_TOOL_CATEGORY_LIGHT,
+  HEADER_CARD_TOOL_CATEGORY_DARK,
   HEADER_CARD_TIME_LIGHT,
   HEADER_CARD_TIME_DARK,
+  HEADER_CARD_TOOL_TIME_LIGHT,
+  HEADER_CARD_TOOL_TIME_DARK,
   HEADER_CARD_COLUMNS_LIGHT,
   HEADER_CARD_COLUMNS_DARK,
   RUN_HISTORY_ID_LIGHT,
