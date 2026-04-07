@@ -34,10 +34,16 @@
 - Tool 二层抽屉：`src/ToolDetailDrawer/ToolDetailDrawer.tsx`
   - 二层 Drawer：第二个 `<Drawer />`（open 由 `selectedRunId` 驱动）
   - 关闭只清空 `selectedRunId`
+  - 状态定义与 open 推导：`src/ToolDetailDrawer/ToolDetailDrawer.tsx#L35-L79`
+  - 从列表项进入二层（设置 selectedRunId）：`src/ToolDetailDrawer/ToolDetailDrawer.tsx#L171-L176`
+  - 二层 Drawer 本体（透明遮罩 + onClose）：`src/ToolDetailDrawer/ToolDetailDrawer.tsx#L186-L264`
 
 - Table 二层抽屉：`src/TableDetailDrawer/TableDetailDrawer.tsx`
   - 二层 Drawer：第二个 `<Drawer />`（open 由 `selectedVersionId` 驱动）
   - 关闭只清空 `selectedVersionId`
+  - 状态定义与 selectedVersion 推导：`src/TableDetailDrawer/TableDetailDrawer.tsx#L38-L69`
+  - 从列表项进入二层（设置 selectedVersionId）：`src/TableDetailDrawer/TableDetailDrawer.tsx#L263-L276`
+  - 二层 Drawer 本体（透明遮罩 + onClose）：`src/TableDetailDrawer/TableDetailDrawer.tsx#L380-L450`
 
 二层抽屉的“透明遮罩 + 可点击返回”写法在这两处一致：开启 mask，但设置 mask 背景透明。
 

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Collapse, Drawer } from 'antd'
-import './style.less'
+import '../common/DrawerShell.less'
+import '../common/LatestInfoPanels.less'
 import DrawerTitleBar from '../common/DrawerTitleBar'
 import HeaderCard from '../common/HeaderCard'
 import DrawerTabs from '../common/DrawerTabs'
@@ -20,7 +21,7 @@ export type ToolDetailDrawerProps = {
   baseUrl?: string
   pageNo?: number
   pageSize?: number
-  currentTheme?: 'lightday' | 'evening'
+  currentTheme?: 'lightday' | 'dark'
 }
 
 export default function ToolDetailDrawer({
@@ -32,6 +33,7 @@ export default function ToolDetailDrawer({
   pageSize,
   currentTheme = 'lightday'
 }: ToolDetailDrawerProps) {
+  const resolvedTheme: 'lightday' | 'dark' = currentTheme === 'dark' ? 'dark' : 'lightday'
   const [activeTab, setActiveTab] = useState<'latestRun' | 'runHistory'>('latestRun')
   const [selectedRunId, setSelectedRunId] = useState<string | null>(null)
   const [viewModel, setViewModel] = useState<JobDetailViewModel | null>(null)
@@ -118,15 +120,15 @@ export default function ToolDetailDrawer({
           }
         }}
       >
-        <div className="drawer-shell" data-theme={currentTheme}>
+        <div className="drawer-shell" data-theme={resolvedTheme}>
           <div className="drawer-title-section">
-            <DrawerTitleBar currentTheme={currentTheme} onClose={onClose} />
+            <DrawerTitleBar currentTheme={resolvedTheme} onClose={onClose} />
           </div>
 
           <div className="drawer-content">
             <HeaderCard
               variant="tool"
-              theme={currentTheme}
+              theme={resolvedTheme}
               title={viewModel?.header.title ?? nodeJobName}
               createdAt={viewModel?.header.createdAt}
               updatedAt={viewModel?.header.updatedAt}
@@ -137,7 +139,7 @@ export default function ToolDetailDrawer({
                   fontSize: 14,
                   lineHeight: '22px',
                   color:
-                    currentTheme === 'evening' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
+                    resolvedTheme === 'dark' ? 'rgba(230, 230, 230, 0.85)' : 'rgba(0, 0, 0, 0.65)'
                 }}
               >
                 Loading...
@@ -147,7 +149,7 @@ export default function ToolDetailDrawer({
                 style={{
                   fontSize: 14,
                   lineHeight: '22px',
-                  color: currentTheme === 'evening' ? '#ff7875' : '#ff4d4f'
+                  color: resolvedTheme === 'dark' ? '#ff7875' : '#ff4d4f'
                 }}
               >
                 加载失败：未获取到 Job 详情数据
@@ -166,12 +168,12 @@ export default function ToolDetailDrawer({
                     }}
                   >
                     <DrawerTabs.Item tabKey="latestRun" label="最新信息">
-                      <LatestRunPanel latestRun={viewModel.latestRun} theme={currentTheme} />
+                      <LatestRunPanel latestRun={viewModel.latestRun} theme={resolvedTheme} />
                     </DrawerTabs.Item>
                     <DrawerTabs.Item tabKey="runHistory" label="运行历史">
                       <RunHistoryPanel
                         items={viewModel.runHistory.items}
-                        theme={currentTheme}
+                        theme={resolvedTheme}
                         onSelectRun={setSelectedRunId}
                       />
                     </DrawerTabs.Item>
@@ -204,10 +206,10 @@ export default function ToolDetailDrawer({
         }}
       >
         {runDetailOpen && selectedRunId && selectedRun && viewModel && runSummary ? (
-          <div className="drawer-shell" data-theme={currentTheme}>
+          <div className="drawer-shell" data-theme={resolvedTheme}>
             <div className="drawer-title-section">
               <DrawerTitleBar
-                currentTheme={currentTheme}
+                currentTheme={resolvedTheme}
                 title={selectedRunId}
                 showMoreAction={false}
                 showCloseAction={false}
@@ -219,11 +221,11 @@ export default function ToolDetailDrawer({
               <ToolHeaderBar summary={runSummary} />
               <div className="drawer-body">
                 <div className="latest-info-panels">
-                  <Collapse ghost defaultActiveKey={['sql', 'sourceCode', 'jobFacets', 'runFacets']}>
+                  <Collapse className="dl-collapse" ghost defaultActiveKey={['sql', 'sourceCode', 'jobFacets', 'runFacets']}>
                     {selectedRun.sqlText?.trim() ? (
                       <Collapse.Panel header="SQL" key="sql">
                         <div className="latest-info-panels__body">
-                          <SqlBlock content={selectedRun.sqlText ?? ''} theme={currentTheme} />
+                          <SqlBlock content={selectedRun.sqlText ?? ''} theme={resolvedTheme} />
                         </div>
                       </Collapse.Panel>
                     ) : null}
@@ -234,7 +236,7 @@ export default function ToolDetailDrawer({
                           <SourceCodeBlock
                             content={viewModel.latestRun.sourceCodeText ?? ''}
                             language={viewModel.latestRun.sourceCodeLanguage}
-                            theme={currentTheme}
+                            theme={resolvedTheme}
                           />
                         </div>
                       </Collapse.Panel>
@@ -243,7 +245,7 @@ export default function ToolDetailDrawer({
                     {Object.keys(jobFacetsForDisplay).length > 0 ? (
                       <Collapse.Panel header="Job Facets" key="jobFacets">
                         <div className="latest-info-panels__body latest-info-panels__body--tree">
-                          <JsonTree data={jobFacetsForDisplay} theme={currentTheme} />
+                          <JsonTree data={jobFacetsForDisplay} theme={resolvedTheme} />
                         </div>
                       </Collapse.Panel>
                     ) : null}
@@ -251,7 +253,7 @@ export default function ToolDetailDrawer({
                     {Object.keys(selectedRun.runFacets ?? {}).length > 0 ? (
                       <Collapse.Panel header="Run Facets" key="runFacets">
                         <div className="latest-info-panels__body latest-info-panels__body--tree">
-                          <JsonTree data={selectedRun.runFacets ?? {}} theme={currentTheme} />
+                          <JsonTree data={selectedRun.runFacets ?? {}} theme={resolvedTheme} />
                         </div>
                       </Collapse.Panel>
                     ) : null}

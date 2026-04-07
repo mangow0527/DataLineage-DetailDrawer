@@ -1,8 +1,9 @@
-import drawerImgs from './DrawerImgs'
+import drawerImgs from './DrawerIcons'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import './DrawerTitleBar.less'
 
 type DrawerTitleBarProps = {
-  currentTheme: 'lightday' | 'evening'
+  currentTheme: 'lightday' | 'dark'
   title?: ReactNode
   onBack?: () => void
   showMoreAction?: boolean

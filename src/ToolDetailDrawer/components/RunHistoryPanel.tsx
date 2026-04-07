@@ -3,7 +3,7 @@ import RunHistoryTable from './RunHistoryTable'
 
 type RunHistoryPanelProps = {
   items: JobDetailViewModel['runHistory']['items']
-  theme: 'lightday' | 'evening'
+  theme: 'lightday' | 'dark'
   onSelectRun: (runId: string) => void
 }
 

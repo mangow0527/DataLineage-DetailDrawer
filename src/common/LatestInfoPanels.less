@@ -1,0 +1,74 @@
+.latest-info-panels__body {
+  border-radius: 8px;
+  border: 0;
+  background: rgba(243, 243, 243, 1);
+  padding: 12px;
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.latest-info-panels__body--tree {
+  overflow-x: auto;
+}
+
+.drawer-shell[data-theme='dark'] .latest-info-panels__body {
+  background: rgba(25, 25, 25, 1);
+}
+
+.latest-info-panels__ace {
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.latest-info-panels__ace.ace_editor,
+.latest-info-panels__ace .ace_editor {
+  font-family: var(--dl-font-mono);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.latest-info-panels__ace.ace_editor,
+.latest-info-panels__ace .ace_scroller {
+  background: transparent;
+}
+
+.latest-info-panels__ace .ace_scroller {
+  padding: 0;
+}
+
+.latest-info-panels__ace .ace_content,
+.latest-info-panels__ace .ace_line {
+  line-height: 22px;
+}
+
+.drawer-shell .dl-collapse > .ant-collapse-item {
+  border-bottom: 0;
+}
+
+.drawer-shell .dl-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding: 10px 0;
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(26, 26, 26, 1);
+}
+
+.drawer-shell[data-theme='dark'] .dl-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell .dl-collapse > .ant-collapse-item > .ant-collapse-content {
+  background: transparent;
+}
+
+.drawer-shell .dl-collapse > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+  padding: 0 0 12px 0;
+}

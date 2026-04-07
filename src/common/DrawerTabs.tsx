@@ -1,5 +1,6 @@
 import { Tabs } from 'antd'
 import { Children, isValidElement, type ReactNode } from 'react'
+import './DrawerTabs.less'
 
 export type DrawerTabsProps = {
   activeKey: string
@@ -32,6 +33,7 @@ const DrawerTabs = Object.assign(function DrawerTabs({ activeKey, onChange, chil
 
   return (
     <Tabs
+      className="dl-tabs"
       // antd Tabs: 当前激活的页签 key（未来替换为公司 Tab 的 “activeKey/selectedKey” 之类的受控值）
       activeKey={activeKey}
       // antd Tabs: 切换页签回调 (key: string)（未来替换为公司 Tab 的 onChange/onSelect 等）

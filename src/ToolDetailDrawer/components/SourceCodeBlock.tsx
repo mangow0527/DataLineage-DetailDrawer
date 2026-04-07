@@ -22,7 +22,7 @@ function toAceMode(language: string | null | undefined) {
 type SourceCodeBlockProps = {
   content: string
   language: string | null
-  theme: 'lightday' | 'evening'
+  theme: 'lightday' | 'dark'
   minLines?: number
   maxLines?: number
 }
@@ -30,7 +30,7 @@ type SourceCodeBlockProps = {
 export default function SourceCodeBlock({ content, language, theme, minLines = 6, maxLines = 28 }: SourceCodeBlockProps) {
   const id = useId()
   const aceMode = useMemo(() => toAceMode(language), [language])
-  const aceTheme = theme === 'evening' ? 'tomorrow_night' : 'chrome'
+  const aceTheme = theme === 'dark' ? 'tomorrow_night' : 'chrome'
 
   return (
     <AceEditor

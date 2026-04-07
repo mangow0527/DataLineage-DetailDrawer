@@ -1,15 +1,16 @@
 import type { ReactNode } from 'react'
-import { Table } from 'antd'
 import { fmtDate, fmtDuration, fmtRunStateZh, normalizeRunState } from '../../common/format'
-import drawerImgs from '../../common/DrawerImgs'
+import drawerImgs from '../../common/DrawerIcons'
+import DlTable from '../../common/DlTable'
 import type { RunHistoryItemViewModel } from '../data/view-model'
 import TablePager from '../../common/TablePager'
 import { useMemo } from 'react'
 import { useTablePagination } from '../../common/useTablePagination'
+import './RunHistoryTable.less'
 
 type RunHistoryTableProps = {
   items: RunHistoryItemViewModel[]
-  theme: 'lightday' | 'evening'
+  theme: 'lightday' | 'dark'
   onSelect: (runId: string) => void
 }
 
@@ -29,11 +30,11 @@ function Th({
 }
 
 export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTableProps) {
-  const isEvening = theme === 'evening'
-  const idIcon = isEvening ? drawerImgs.RUN_HISTORY_ID_DARK : drawerImgs.RUN_HISTORY_ID_LIGHT
-  const stateIcon = isEvening ? drawerImgs.RUN_HISTORY_STATE_DARK : drawerImgs.RUN_HISTORY_STATE_LIGHT
-  const timeIcon = isEvening ? drawerImgs.RUN_HISTORY_TIME_DARK : drawerImgs.RUN_HISTORY_TIME_LIGHT
-  const copyIcon = isEvening ? drawerImgs.COPY_DARK : drawerImgs.COPY_LIGHT
+  const isDark = theme === 'dark'
+  const idIcon = isDark ? drawerImgs.RUN_HISTORY_ID_DARK : drawerImgs.RUN_HISTORY_ID_LIGHT
+  const stateIcon = isDark ? drawerImgs.RUN_HISTORY_STATE_DARK : drawerImgs.RUN_HISTORY_STATE_LIGHT
+  const timeIcon = isDark ? drawerImgs.RUN_HISTORY_TIME_DARK : drawerImgs.RUN_HISTORY_TIME_LIGHT
+  const copyIcon = isDark ? drawerImgs.COPY_DARK : drawerImgs.COPY_LIGHT
   const completeIcon = drawerImgs.RUN_STATUS_COMPLETE
   const failIcon = drawerImgs.RUN_STATUS_FAIL
   const runningIcon = drawerImgs.RUN_STATUS_RUNNING
@@ -71,29 +72,17 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
 
   return (
     <div>
-      <Table
+      <DlTable
         className="tool-run-history-table"
-        size="small"
-        rowKey="id"
-        dataSource={pageItems}
-        pagination={false}
-        onRow={(record: RunHistoryItemViewModel) => ({
-          onClick: () => onSelect(record.id)
-        })}
         columns={[
           {
+            key: 'id',
             title: <Th icon={idIcon} label="ID" />,
-            dataIndex: 'id',
-            render: (v: string) => (
+            width: 180,
+            render: (row) => (
               <span className="dl-table__id-cell">
-                <span
-                  className="dl-table__id"
-                  style={{
-                    fontFamily:
-                      'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-                  }}
-                >
-                  {v?.length > 8 ? `${v.slice(0, 8)}...` : v}
+                <span className="dl-table__id">
+                  {row.id?.length > 8 ? `${row.id.slice(0, 8)}...` : row.id}
                 </span>
                 <button
                   type="button"
@@ -101,7 +90,7 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
                   className="dl-table__copy"
                   onClick={(e) => {
                     e.stopPropagation()
-                    v && navigator.clipboard?.writeText(v)
+                    row.id && navigator.clipboard?.writeText(row.id)
                   }}
                 >
                   {copyIcon}
@@ -110,22 +99,26 @@ export default function RunHistoryTable({ items, theme, onSelect }: RunHistoryTa
             )
           },
           {
+            key: 'state',
             title: <Th icon={stateIcon} label="状态" />,
-            dataIndex: 'state',
-            render: (v: string) => (
+            width: 120,
+            render: (row) => (
               <span className="tool-run-history-table__state-cell">
-                <span className={`tool-run-history-table__state-icon ${getStateClass(v)}`} aria-hidden="true">
-                  {getStateIcon(v)}
+                <span className={`tool-run-history-table__state-icon ${getStateClass(row.state)}`} aria-hidden="true">
+                  {getStateIcon(row.state)}
                 </span>
-                <span className="tool-run-history-table__state-text">{fmtRunStateZh(v)}</span>
+                <span className="tool-run-history-table__state-text">{fmtRunStateZh(row.state)}</span>
               </span>
             )
           },
-          { title: <Th icon={timeIcon} label="创建时间" />, dataIndex: 'createdAt', render: fmtDate },
-          { title: <Th icon={timeIcon} label="开始时间" />, dataIndex: 'startedAt', render: fmtDate },
-          { title: <Th icon={timeIcon} label="结束时间" />, dataIndex: 'endedAt', render: fmtDate },
-          { title: <Th label="持续时间" />, dataIndex: 'durationMs', render: fmtDuration }
+          { key: 'createdAt', title: <Th icon={timeIcon} label="创建时间" />, width: 200, render: (row) => fmtDate(row.createdAt) },
+          { key: 'startedAt', title: <Th icon={timeIcon} label="开始时间" />, width: 200, render: (row) => fmtDate(row.startedAt) },
+          { key: 'endedAt', title: <Th icon={timeIcon} label="结束时间" />, width: 200, render: (row) => fmtDate(row.endedAt) },
+          { key: 'durationMs', title: <Th label="持续时间" />, width: 140, render: (row) => fmtDuration(row.durationMs) }
         ]}
+        dataSource={pageItems}
+        rowKey={(row) => row.id}
+        onRowClick={(row) => onSelect(row.id)}
       />
       <TablePager total={items.length} pageSize={pageSize} current={current} onChange={setCurrent} onPageSizeChange={onPageSizeChange} />
     </div>

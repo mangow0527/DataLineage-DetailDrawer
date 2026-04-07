@@ -1,4 +1,4 @@
-// Drawer 标题栏：右侧“更多操作 / Actions”按钮（打开操作菜单）。当前被 DrawerTitleBar / DrawerTitle 使用。
+// Drawer 标题栏：右侧“更多操作 / Actions”按钮（打开操作菜单）。当前被 DrawerTitleBar 使用。
 const MORE_ACTIONS_LIGHT = (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
     <path
@@ -334,3 +334,4 @@ export default {
   RUN_STATUS_START,
   RUN_STATUS_OTHER
 }
+

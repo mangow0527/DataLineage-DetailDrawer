@@ -15,6 +15,7 @@
     "paths": {}
   },
   "include": [
+    "global.d.ts",
     "src",
     "src/**/*"
   ]

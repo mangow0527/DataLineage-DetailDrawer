@@ -7,12 +7,12 @@ import 'ace-builds/src-noconflict/theme-tomorrow_night'
 
 type SqlBlockProps = {
   content: string
-  theme?: 'lightday' | 'evening'
+  theme?: 'lightday' | 'dark'
 }
 
 export default function SqlBlock({ content, theme = 'lightday' }: SqlBlockProps) {
   const id = useId()
-  const aceTheme = theme === 'evening' ? 'tomorrow_night' : 'chrome'
+  const aceTheme = theme === 'dark' ? 'tomorrow_night' : 'chrome'
 
   return (
     <AceEditor

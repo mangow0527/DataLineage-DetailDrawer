@@ -1,0 +1,53 @@
+.drawer-shell .dl-tabs {
+  margin: 0;
+}
+
+.drawer-shell .dl-tabs [role='tablist'] {
+  display: flex;
+  gap: 32px;
+  border-bottom: 0;
+}
+
+.drawer-shell .dl-tabs [role='tab'] {
+  position: relative;
+  padding: 8px 0;
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  color: rgba(77, 77, 77, 1);
+}
+
+.drawer-shell[data-theme='dark'] .dl-tabs [role='tab'] {
+  color: rgba(179, 179, 179, 1);
+}
+
+.drawer-shell .dl-tabs [role='tab'] + [role='tab']::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  transform: translateY(-50%);
+  background: var(--dl-border-soft);
+  pointer-events: none;
+}
+
+.drawer-shell[data-theme='dark'] .dl-tabs [role='tab'] + [role='tab']::before {
+  background: var(--dl-border);
+}
+
+.drawer-shell .dl-tabs [role='tab'][aria-selected='true'] {
+  color: rgba(38, 115, 229, 1);
+}
+
+.drawer-shell[data-theme='dark'] .dl-tabs [role='tab'][aria-selected='true'] {
+  color: rgba(51, 136, 255, 1);
+}
+
+.drawer-shell .dl-tabs [role='tab']:hover {
+  color: var(--dl-focus);
+}

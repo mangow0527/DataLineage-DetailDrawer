@@ -6,7 +6,7 @@ import SqlBlock from './SqlBlock'
 
 type LatestRunPanelProps = {
   latestRun: JobDetailViewModel['latestRun']
-  theme: 'lightday' | 'evening'
+  theme: 'lightday' | 'dark'
 }
 
 export default function LatestRunPanel({ latestRun, theme }: LatestRunPanelProps) {
@@ -34,7 +34,7 @@ export default function LatestRunPanel({ latestRun, theme }: LatestRunPanelProps
 
   return (
     <div className="latest-info-panels">
-      <Collapse ghost defaultActiveKey={defaultOpenKeys}>
+      <Collapse className="dl-collapse" ghost defaultActiveKey={defaultOpenKeys}>
         {hasSql ? (
           <Collapse.Panel header="SQL" key="sql">
             <div className="latest-info-panels__body">

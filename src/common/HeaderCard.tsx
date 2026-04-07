@@ -1,12 +1,16 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Tooltip } from 'antd'
-import drawerImgs from './DrawerImgs'
+import drawerImgs from './DrawerIcons'
 import { fmtDate } from './format'
 import './HeaderCard.less'
+import HEADER_CARD_TOOL_LIGHT_SVG from './assets/header-card-tool-lightday.svg?raw'
+import HEADER_CARD_TABLE_LIGHT_SVG from './assets/header-card-table-lightday.svg?raw'
+import HEADER_CARD_TOOL_DARK_SVG from './assets/header-card-tool-dark.svg?raw'
+import HEADER_CARD_TABLE_DARK_SVG from './assets/header-card-table-dark.svg?raw'
 
 export type HeaderCardProps = {
   variant: 'tool' | 'table'
-  theme: 'lightday' | 'evening'
+  theme: 'lightday' | 'dark'
   title: string
   createdAt?: string | null
   updatedAt?: string | null
@@ -15,20 +19,8 @@ export type HeaderCardProps = {
   createdAtIcon?: ReactNode
   updatedAtIcon?: ReactNode
   columnCountIcon?: ReactNode
-  assetBasePath?: string
   backgroundColor?: string
   backgroundImage?: string
-}
-
-function getAssetBasePath() {
-  const w = globalThis as any
-  const fromGlobal = w?.PUBLIC_PATH ?? w?.__PUBLIC_PATH__ ?? w?.publicPath ?? null
-  const fromBaseTag =
-    typeof document !== 'undefined' ? (document.querySelector('base') as HTMLBaseElement | null)?.href ?? null : null
-  const raw = (fromGlobal ?? fromBaseTag ?? '') as string
-  if (!raw) return ''
-  if (raw.endsWith('/')) return raw
-  return `${raw}/`
 }
 
 function toCssUrl(value: string) {
@@ -37,6 +29,16 @@ function toCssUrl(value: string) {
   if (trimmed === 'none') return 'none'
   if (trimmed.startsWith('url(')) return trimmed
   return `url(${trimmed})`
+}
+
+function svgToCssUrl(svg: string) {
+  const normalized = svg.replace(/[\r\n]+/g, '').trim()
+  const encoded = encodeURIComponent(normalized)
+    .replace(/%20/g, ' ')
+    .replace(/%3D/g, '=')
+    .replace(/%3A/g, ':')
+    .replace(/%2F/g, '/')
+  return `url("data:image/svg+xml,${encoded}")`
 }
 
 function useTextOverflow(value: string) {
@@ -80,15 +82,18 @@ export default function HeaderCard({
   createdAtIcon,
   updatedAtIcon,
   columnCountIcon,
-  assetBasePath,
   backgroundColor,
   backgroundImage
 }: HeaderCardProps) {
-  const themeFolder = theme === 'lightday' ? 'lightday' : 'evening'
-  const defaultBgPath = `images/${themeFolder}/header-card-${variant}.svg`
-  const basePath = assetBasePath ?? getAssetBasePath()
-  const defaultBgUrl = basePath ? `${basePath}${defaultBgPath}` : `/${defaultBgPath}`
-  const resolvedBgImage = toCssUrl(backgroundImage ?? defaultBgUrl)
+  const defaultBgSvg =
+    variant === 'tool'
+      ? theme === 'lightday'
+        ? HEADER_CARD_TOOL_LIGHT_SVG
+        : HEADER_CARD_TOOL_DARK_SVG
+      : theme === 'lightday'
+        ? HEADER_CARD_TABLE_LIGHT_SVG
+        : HEADER_CARD_TABLE_DARK_SVG
+  const resolvedBgImage = backgroundImage ? toCssUrl(backgroundImage) : svgToCssUrl(defaultBgSvg)
   const { ref: titleRef, isOverflowing: isTitleOverflowing } = useTextOverflow(title)
   const tooltipColor = theme === 'lightday' ? '#ffffff' : '#000000'
   const tooltipInnerStyle = theme === 'lightday' ? { color: '#000000' } : { color: '#ffffff' }

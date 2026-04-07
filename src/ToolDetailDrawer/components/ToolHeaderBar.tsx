@@ -1,5 +1,6 @@
 import { fmtDateTime, fmtDurationHmsMs, fmtRunStateZh } from '../../common/format'
 import type { SummaryViewModel } from '../data/view-model'
+import './ToolHeaderBar.less'
 
 type ToolHeaderBarProps = {
   summary: SummaryViewModel

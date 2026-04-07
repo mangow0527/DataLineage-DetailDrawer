@@ -1,0 +1,130 @@
+.drawer-shell .dl-tree {
+  background: transparent;
+}
+
+.drawer-shell .dl-tree__node {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 22px;
+}
+
+.drawer-shell .dl-tree__indent {
+  flex: 0 0 auto;
+}
+
+.drawer-shell .dl-tree__indent-unit {
+  flex: 0 0 auto;
+}
+
+.drawer-shell .dl-tree__switcher {
+  width: 24px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dl-text-primary);
+  flex: 0 0 auto;
+}
+
+.drawer-shell .dl-tree__switcher--noop {
+  visibility: hidden;
+}
+
+.drawer-shell .dl-tree__switcher-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(0deg);
+  transition: transform 0.15s ease;
+}
+
+.drawer-shell .dl-tree__node--expanded .dl-tree__switcher-icon {
+  transform: rotate(90deg);
+}
+
+.drawer-shell .dl-tree__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.drawer-shell .dl-json-tree__row--expandable {
+  cursor: pointer;
+}
+
+.drawer-shell .dl-json-tree__row--expandable .dl-json-tree__copy {
+  cursor: pointer;
+}
+
+.drawer-shell .dl-json-tree__copy {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--dl-text-tertiary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-shell .dl-json-tree__copy:hover {
+  color: var(--dl-focus);
+  background: rgba(38, 115, 229, 0.06);
+}
+
+.drawer-shell[data-theme='dark'] .dl-json-tree__copy:hover {
+  background: rgba(51, 136, 255, 0.10);
+}
+
+.drawer-shell .dl-json-tree__copy svg {
+  width: 16px;
+  height: 16px;
+}
+
+.drawer-shell .dl-json-tree__row {
+  font-family: 'Huawei Sans', var(--dl-font-sans);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__label {
+  line-height: 22px;
+  color: rgba(26, 26, 26, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__items {
+  line-height: 22px;
+  color: rgba(26, 26, 26, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell .dl-json-tree__preview {
+  line-height: 22px;
+  color: rgba(147, 134, 255, 1);
+}
+
+.drawer-shell .dl-json-tree__type {
+  color: rgba(196, 189, 255, 1);
+  white-space: nowrap;
+}
+
+.drawer-shell[data-theme='dark'] .dl-json-tree__label {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell[data-theme='dark'] .dl-json-tree__items {
+  color: rgba(230, 230, 230, 1);
+}
+
+.drawer-shell[data-theme='dark'] .dl-tree__switcher {
+  color: rgba(230, 230, 230, 1);
+}

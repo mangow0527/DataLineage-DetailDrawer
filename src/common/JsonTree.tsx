@@ -1,14 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Tree } from 'antd'
-import drawerImgs from './DrawerImgs'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import drawerImgs from './DrawerIcons'
+import './JsonTree.less'
 
 type TreeNode = {
-  key: React.Key
-  title: React.ReactNode
+  key: string
+  title: ReactNode
   label: string
   value: unknown
   children?: TreeNode[]
 }
+
+const SWITCHER_ICON = (
+  <svg viewBox="0 0 1024 1024" width="14" height="14" aria-hidden="true">
+    <path d="M384 192l384 320-384 320z" fill="currentColor" />
+  </svg>
+)
 
 function countItems(value: unknown): number {
   if (Array.isArray(value)) return value.length
@@ -128,9 +134,9 @@ function toTreeNodes(value: unknown, prefix = 'root'): TreeNode[] {
   ]
 }
 
-function collectKeys(nodes: TreeNode[], acc: React.Key[] = []) {
+function collectKeys(nodes: TreeNode[], acc: string[] = []) {
   for (const n of nodes) {
-    acc.push(n.key as React.Key)
+    acc.push(n.key)
     if (n.children) collectKeys(n.children, acc)
   }
   return acc
@@ -163,11 +169,11 @@ export default function JsonTree({
 }: {
   title?: string
   data: unknown
-  theme?: 'lightday' | 'evening'
+  theme?: 'lightday' | 'dark'
 }) {
   const treeData = useMemo(() => toTreeNodes(data), [data])
   const allKeys = useMemo(() => collectKeys(treeData), [treeData])
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(allKeys)
+  const [expandedKeys, setExpandedKeys] = useState<string[]>(allKeys)
   const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const [expandedValueKeys, setExpandedValueKeys] = useState<Set<string>>(() => new Set())
 
@@ -180,80 +186,137 @@ export default function JsonTree({
     setExpandedKeys(allKeys)
   }, [allKeys])
 
+  const expandedKeySet = useMemo(() => new Set(expandedKeys), [expandedKeys])
+
+  const toggleExpand = (key: string) => {
+    setExpandedKeys((prev) => {
+      const set = new Set(prev)
+      if (set.has(key)) set.delete(key)
+      else set.add(key)
+      return Array.from(set)
+    })
+  }
+
+  const renderTitle = (n: TreeNode) => {
+    const keyStr = String(n.key)
+    const showCopy = hoveredKey ? hoveredAncestors.has(String(n.key)) : false
+    const showColon = String(n.key) !== 'root'
+    const runtimeType = typeOfValue(n.value)
+    const isLeaf = runtimeType !== 'object' && runtimeType !== 'array'
+    const showLeafType = showColon && isLeaf
+    const displayType = semanticLeafType(n.label, n.value)
+    const hasLabel = Boolean(n.label)
+    const isExpandableValue = isLeaf && typeof n.value === 'string' && normalizeInlineText(n.value).length > 48
+    const isExpandedValue = isExpandableValue && expandedValueKeys.has(keyStr)
+    const preview = previewForValue(n.value, isExpandableValue ? { expanded: isExpandedValue, maxChars: 48 } : undefined)
+    const previewClass = isLeaf ? 'dl-json-tree__preview' : 'dl-json-tree__items'
+    return (
+      <span
+        className={isExpandableValue ? 'dl-json-tree__row dl-json-tree__row--expandable' : 'dl-json-tree__row'}
+        onMouseEnter={() => setHoveredKey(String(n.key))}
+        onClick={(e) => {
+          if (!isExpandableValue) return
+          e.stopPropagation()
+          setExpandedValueKeys((prev) => {
+            const next = new Set(prev)
+            if (next.has(keyStr)) {
+              next.delete(keyStr)
+            } else {
+              next.add(keyStr)
+            }
+            return next
+          })
+        }}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+      >
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          {hasLabel ? <span className="dl-json-tree__label">{n.label}{showColon ? ':' : ''}</span> : null}
+          {showLeafType ? <span className="dl-json-tree__type">{displayType}</span> : null}
+          <span className={previewClass}>{preview}</span>
+        </span>
+        <button
+          type="button"
+          aria-label="copy"
+          className="dl-json-tree__copy"
+          onClick={(e) => {
+            e.stopPropagation()
+            copyJson(n.value)
+          }}
+          style={{
+            opacity: showCopy ? 1 : 0,
+            pointerEvents: showCopy ? 'auto' : 'none',
+            flex: '0 0 auto'
+          }}
+        >
+          {theme === 'dark' ? drawerImgs.COPY_DARK : drawerImgs.COPY_LIGHT}
+        </button>
+      </span>
+    )
+  }
+
+  const renderNodes = (nodes: TreeNode[], level: number): ReactNode[] => {
+    const out: ReactNode[] = []
+    for (const n of nodes) {
+      const hasChildren = Boolean(n.children && n.children.length > 0)
+      const expanded = hasChildren ? expandedKeySet.has(n.key) : false
+
+      out.push(
+        <div
+          key={n.key}
+          className={[
+            'dl-tree__node',
+            expanded ? 'dl-tree__node--expanded' : null,
+            hasChildren ? null : 'dl-tree__node--leaf'
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          <span className="dl-tree__indent" style={{ display: 'inline-block' }}>
+            {Array.from({ length: level }).map((_, idx) => (
+              <span key={idx} className="dl-tree__indent-unit" style={{ display: 'inline-block', width: 24 }} />
+            ))}
+          </span>
+          <span
+            className={[
+              'dl-tree__switcher',
+              hasChildren ? null : 'dl-tree__switcher--noop',
+              expanded ? 'dl-tree__switcher--open' : 'dl-tree__switcher--close'
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            onClick={(e) => {
+              if (!hasChildren) return
+              e.stopPropagation()
+              toggleExpand(n.key)
+            }}
+            aria-hidden="true"
+          >
+            {hasChildren ? (
+              <span
+                className="dl-tree__switcher-icon"
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                {SWITCHER_ICON}
+              </span>
+            ) : (
+              <span className="dl-tree__switcher-icon" />
+            )}
+          </span>
+          <span className="dl-tree__content">{renderTitle(n)}</span>
+        </div>
+      )
+
+      if (hasChildren && expanded) {
+        out.push(...renderNodes(n.children ?? [], level + 1))
+      }
+    }
+    return out
+  }
+
   return (
     <div onMouseLeave={() => setHoveredKey(null)}>
       {title ? <div style={{ fontWeight: 600 }}>{title}</div> : null}
-      <Tree
-        treeData={treeData}
-        expandedKeys={expandedKeys}
-        onExpand={(keys: React.Key[]) => setExpandedKeys(keys)}
-        titleRender={(node) => {
-          const n = node as TreeNode
-          const keyStr = String(n.key)
-          const showCopy = hoveredKey ? hoveredAncestors.has(String(n.key)) : false
-          const showColon = String(n.key) !== 'root'
-          const runtimeType = typeOfValue(n.value)
-          const isLeaf = runtimeType !== 'object' && runtimeType !== 'array'
-          const showLeafType = showColon && isLeaf
-          const displayType = semanticLeafType(n.label, n.value)
-          const hasLabel = Boolean(n.label)
-          const isExpandableValue = isLeaf && typeof n.value === 'string' && normalizeInlineText(n.value).length > 48
-          const isExpandedValue = isExpandableValue && expandedValueKeys.has(keyStr)
-          const preview = previewForValue(n.value, isExpandableValue ? { expanded: isExpandedValue, maxChars: 48 } : undefined)
-          const previewClass = isLeaf ? 'dl-json-tree__preview' : 'dl-json-tree__items'
-          return (
-            <span
-              className={
-                isExpandableValue ? 'dl-json-tree__row dl-json-tree__row--expandable' : 'dl-json-tree__row'
-              }
-              onMouseEnter={() => setHoveredKey(String(n.key))}
-              onClick={(e) => {
-                if (!isExpandableValue) return
-                e.stopPropagation()
-                setExpandedValueKeys((prev) => {
-                  const next = new Set(prev)
-                  if (next.has(keyStr)) {
-                    next.delete(keyStr)
-                  } else {
-                    next.add(keyStr)
-                  }
-                  return next
-                })
-              }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-            >
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                {hasLabel ? (
-                  <span
-                    className="dl-json-tree__label"
-                  >
-                    {n.label}
-                    {showColon ? ':' : ''}
-                  </span>
-                ) : null}
-                {showLeafType ? <span className="dl-json-tree__type">{displayType}</span> : null}
-                <span className={previewClass}>{preview}</span>
-              </span>
-              <button
-                type="button"
-                aria-label="copy"
-                className="dl-json-tree__copy"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  copyJson(n.value)
-                }}
-                style={{
-                  opacity: showCopy ? 1 : 0,
-                  pointerEvents: showCopy ? 'auto' : 'none',
-                  flex: '0 0 auto'
-                }}
-              >
-                {theme === 'evening' ? drawerImgs.COPY_DARK : drawerImgs.COPY_LIGHT}
-              </button>
-            </span>
-          )
-        }}
-      />
+      <div className="dl-tree">{renderNodes(treeData, 0)}</div>
     </div>
   )
 }
