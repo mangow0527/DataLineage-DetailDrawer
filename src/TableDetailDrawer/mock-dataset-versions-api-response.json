@@ -68,8 +68,217 @@
             "_schemaURL": "https://openlineage.io/spec/facets/1-0/"
           }
         }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-10-15T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a001",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": "The unique ID of the restaurant." },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-121" },
+        "facets": { "schema": { "fields": 4, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-10-10T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a002",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "updated_at", "type": "TIMESTAMP", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null },
+          { "name": "phone", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-120" },
+        "facets": { "schema": { "fields": 6, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-10-05T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a003",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-119" },
+        "facets": { "schema": { "fields": 2, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-10-01T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a004",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "updated_at", "type": "TIMESTAMP", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-118" },
+        "facets": { "schema": { "fields": 3, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-25T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a005",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-117" },
+        "facets": { "schema": { "fields": 3, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-20T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a006",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-116" },
+        "facets": { "schema": { "fields": 4, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-15T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a007",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "updated_at", "type": "TIMESTAMP", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-115" },
+        "facets": { "schema": { "fields": 4, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-10T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a008",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null },
+          { "name": "phone", "type": "VARCHAR", "description": null },
+          { "name": "address", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-114" },
+        "facets": { "schema": { "fields": 5, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-05T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a009",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-113" },
+        "facets": { "schema": { "fields": 3, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
+      },
+      {
+        "type": "DB_TABLE",
+        "name": "restaurants",
+        "physicalName": "public.restaurants",
+        "createdAt": "2025-09-01T03:10:00Z",
+        "version": "b0d7d1a0-9c3a-4f2b-91b4-2d2a2ef1a010",
+        "namespace": "public",
+        "sourceName": "food_delivery_db",
+        "fields": [
+          { "name": "id", "type": "INTEGER", "description": null },
+          { "name": "created_at", "type": "TIMESTAMP", "description": null },
+          { "name": "updated_at", "type": "TIMESTAMP", "description": null },
+          { "name": "name", "type": "VARCHAR", "description": null },
+          { "name": "email", "type": "VARCHAR", "description": null }
+        ],
+        "tags": [],
+        "lifecycleState": "N/A",
+        "description": "A table for restaurants.",
+        "currentSchemaVersion": null,
+        "createdByRun": { "id": "run-112" },
+        "facets": { "schema": { "fields": 5, "_producer": "https://github.com/MarquezProject/marquez", "_schemaURL": "https://openlineage.io/spec/facets/1-0/" } }
       }
     ],
-    "totalCount": 2
+    "totalCount": 12
   }
 }
