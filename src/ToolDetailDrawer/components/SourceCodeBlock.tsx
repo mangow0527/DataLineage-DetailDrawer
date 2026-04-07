@@ -1,5 +1,6 @@
-import { useId, useMemo } from 'react'
+import { useMemo } from 'react'
 import AceEditor from 'react-ace'
+import { useStableId } from '../../common/useStableId'
 
 import 'ace-builds/src-noconflict/mode-java'
 import 'ace-builds/src-noconflict/mode-python'
@@ -28,7 +29,7 @@ type SourceCodeBlockProps = {
 }
 
 export default function SourceCodeBlock({ content, language, theme, minLines = 6, maxLines = 28 }: SourceCodeBlockProps) {
-  const id = useId()
+  const id = useStableId()
   const aceMode = useMemo(() => toAceMode(language), [language])
   const aceTheme = theme === 'dark' ? 'tomorrow_night' : 'chrome'
 

@@ -1,5 +1,5 @@
-import { useId } from 'react'
 import AceEditor from 'react-ace'
+import { useStableId } from '../../common/useStableId'
 
 import 'ace-builds/src-noconflict/mode-sql'
 import 'ace-builds/src-noconflict/theme-chrome'
@@ -11,7 +11,7 @@ type SqlBlockProps = {
 }
 
 export default function SqlBlock({ content, theme = 'lightday' }: SqlBlockProps) {
-  const id = useId()
+  const id = useStableId()
   const aceTheme = theme === 'dark' ? 'tomorrow_night' : 'chrome'
 
   return (
